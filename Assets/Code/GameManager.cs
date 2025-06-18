@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string combatSceneName;
 
     public static GameManager Instance { get; private set; }
-    public CombatSceneParameters CurrentParameters { get; private set; }
+    public CombatSceneParameters CurrentParameters { get; protected set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (Instance != null && Instance != this)
         {
