@@ -15,6 +15,7 @@ public class CombatManager : MonoBehaviour
     private List<CombatUnit> EnemyUnits { get; set; }
     private CombatUnit PlayerUnit { get; set; }
     private int SetupCount { get; set; }
+    private bool HasStarted { get; set; }
 
     private void Awake()
     {
@@ -27,26 +28,16 @@ public class CombatManager : MonoBehaviour
         Instance = this;
 
         SetUp();
+        SetUpUnits();
         SetUpTurnOrder();
-    }
-
-    public void RegisterUnitSetup()
-    {
-        SetupCount++;
-
-        if (SetupCount >= 4)
-        {
-            StartNextTurn();
-
-            SetupCount = 0;
-        }
+        StartNextTurn();
     }
 
     private void SetUp()
     {
         SetUpPrefabMap();
 
-        TurnQueue = new();
+        TurnQueue = new Queue<CombatUnit>();
     }
 
     private void SetUpPrefabMap()
@@ -61,8 +52,6 @@ public class CombatManager : MonoBehaviour
 
     private void SetUpTurnOrder()
     {
-        SetUpUnits();
-
         Units.Sort((a, b) =>
         {
             if (a.Stats.Speed == b.Stats.Speed)
@@ -117,7 +106,8 @@ public class CombatManager : MonoBehaviour
 
         if (TurnQueue.Count == 0)
         {
-            // SetUpTurnOrder();
+            SetUpTurnOrder();
+            StartNextTurn();
             return;
         }
 
