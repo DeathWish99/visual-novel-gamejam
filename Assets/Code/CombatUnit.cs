@@ -11,10 +11,6 @@ public class CombatUnit : MonoBehaviour
     private void Awake()
     {
         CurrentHP = Stats.MaxHP;
-        
-        Debug.Log($"{Stats.UnitName}: {CurrentHP}");
-        
-        CombatManager.Instance.RegisterUnitSetup();
     }
 
     public void TakeDamage(int amount)
