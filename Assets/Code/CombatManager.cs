@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
@@ -102,7 +103,11 @@ public class CombatManager : MonoBehaviour
 
     private void StartNextTurn()
     {
-        if (HasBattleEnded()) return;
+        if (HasBattleEnded())
+        {
+            Invoke(nameof(ReloadScene), 1.0f);
+            return;
+        }
 
         if (TurnQueue.Count == 0)
         {
@@ -171,5 +176,10 @@ public class CombatManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene("CombatScene");
     }
 }
