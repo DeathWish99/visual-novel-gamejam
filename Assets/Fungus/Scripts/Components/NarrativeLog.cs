@@ -130,7 +130,7 @@ namespace Fungus
         /// <returns></returns>
         public string GetPrettyHistory(bool previousOnly = false)
         {
-            string output = "\n ";
+            string output = "";
             int count;
 
             count = previousOnly ? history.entries.Count - 1 : history.entries.Count;

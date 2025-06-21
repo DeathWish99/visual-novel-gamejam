@@ -114,27 +114,27 @@ namespace Fungus
             var saveManager = FungusManager.Instance.SaveManager;
 
             // Hide the Save and Load buttons if autosave is on
-
             bool showSaveAndLoad = !autoSave;
+
             if (saveButton.IsActive() != showSaveAndLoad)
             {
                 saveButton.gameObject.SetActive(showSaveAndLoad);
                 loadButton.gameObject.SetActive(showSaveAndLoad);
             }
  
-            if (showSaveAndLoad)
-            {
-                if (saveButton != null)
-                {
-                    // Don't allow saving unless there's at least one save point in the history,
-                    // This avoids the case where you could try to load a save data with 0 save points.
-                    saveButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
-                }
-                if (loadButton != null)
-                {
-                    loadButton.interactable = saveManager.SaveDataExists(saveDataKey) && saveMenuActive;
-                }
-            }
+            //if (showSaveAndLoad)
+            //{
+            //    if (saveButton != null)
+            //    {
+            //        // Don't allow saving unless there's at least one save point in the history,
+            //        // This avoids the case where you could try to load a save data with 0 save points.
+            //        saveButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
+            //    }
+            //    if (loadButton != null)
+            //    {
+            //        loadButton.interactable = saveManager.SaveDataExists(saveDataKey) && saveMenuActive;
+            //    }
+            //}
 
             if (restartButton != null)
             {
