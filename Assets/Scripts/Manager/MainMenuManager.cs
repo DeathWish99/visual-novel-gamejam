@@ -19,6 +19,7 @@ namespace VisualNovel.GameJam.Manager
         private void InitializeMainMenuButtons()
         {
             newGameButton.onClick.RemoveAllListeners();
+            newGameButton.onClick.AddListener(() => SceneLoaderManager.Instance.LoadNewScene("VisualNovel"));
 
             loadButton.onClick.RemoveAllListeners();
 
