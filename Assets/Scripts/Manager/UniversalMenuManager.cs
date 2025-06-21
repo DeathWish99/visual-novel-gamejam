@@ -32,12 +32,15 @@ namespace VisualNovel.GameJam.Manager
         [SerializeField] private TextMeshProUGUI pageTitleText;
 
         [Header("Panel")]
+        [SerializeField] private CanvasGroup blackPanel;
         [SerializeField] private SettingPanel settingPanel;
         [SerializeField] private PausePanel pausePanel;
 
         #region Events
         [HideInInspector] public UnityEvent OnOpenSettingMainMenu;
         [HideInInspector] public UnityEvent OnOpenPauseMenu;
+
+        [HideInInspector] public UnityEvent<bool> ShowBlackPanel;
         #endregion
 
         private void Start()
@@ -49,6 +52,9 @@ namespace VisualNovel.GameJam.Manager
             pausePanel.Init(ClosePauseMenu, OpenSettingPause);
             OnOpenPauseMenu.RemoveAllListeners();
             OnOpenPauseMenu.AddListener(OpenPauseMenu);
+
+            ShowBlackPanel.RemoveAllListeners();
+            ShowBlackPanel.AddListener((show) => ToggleCanvasGroupPanel(blackPanel, show));
         }
 
         #region Main Menu Panel
