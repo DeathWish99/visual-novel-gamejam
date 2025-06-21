@@ -7,6 +7,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject companionPrefab;
     [SerializeField] private List<EnemyPrefabPair> enemyPrefabs;
+    [SerializeField] private RectTransform playerPosition;
+    [SerializeField] private RectTransform companionPosition;
+    [SerializeField] private List<RectTransform> enemyPositions;
 
     public static CombatManager Instance { get; private set; }
     private Dictionary<EnemyType, GameObject> PrefabMap { get; set; }
@@ -76,27 +79,31 @@ public class CombatManager : MonoBehaviour
         Units = new List<CombatUnit>();
         EnemyUnits = new List<CombatUnit>();
         PlayerUnits = new List<CombatUnit>();
-        PlayerUnit = Instantiate(playerPrefab).GetComponent<CombatUnit>();
+        PlayerUnit = Instantiate(playerPrefab, playerPosition).GetComponent<CombatUnit>();
 
         Units.Add(PlayerUnit);
         PlayerUnits.Add(PlayerUnit);
 
         if (parameters.HasCompanion)
         {
-            CombatUnit companionUnit = Instantiate(companionPrefab).GetComponent<CombatUnit>();
+            CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
 
             Units.Add(companionUnit);
             PlayerUnits.Add(companionUnit);
         }
 
+        int enemyPositionCounter = 0;
+
         foreach (var enemyType in parameters.Enemies)
         {
             if (PrefabMap.TryGetValue(enemyType, out GameObject prefab))
             {
-                CombatUnit enemyUnit = Instantiate(prefab).GetComponent<CombatUnit>();
+                CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter]).GetComponent<CombatUnit>();
 
                 Units.Add(enemyUnit);
                 EnemyUnits.Add(enemyUnit);
+
+                enemyPositionCounter++;
             }
         }
     }
@@ -105,7 +112,7 @@ public class CombatManager : MonoBehaviour
     {
         if (HasBattleEnded())
         {
-            Invoke(nameof(ReloadScene), 1.0f);
+            // Invoke(nameof(ReloadScene), 1.0f);
             return;
         }
 
