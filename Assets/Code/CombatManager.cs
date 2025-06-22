@@ -37,6 +37,15 @@ public class CombatManager : MonoBehaviour
         StartNextTurn();
     }
 
+    public void TakePlayerAction(CombatUnit target)
+    {
+        int damage = PlayerUnit.Stats.CalculateDamage(target.Stats.Defence);
+
+        target.TakeDamage(damage);
+
+        Invoke(nameof(StartNextTurn), 1.0f);
+    }
+
     private void SetUp()
     {
         SetUpPrefabMap();
@@ -126,12 +135,17 @@ public class CombatManager : MonoBehaviour
         CombatUnit currentUnit = TurnQueue.Dequeue();
         Debug.Log($"Current Turn: {currentUnit.Stats.UnitName}");
 
-        if (currentUnit.IsDead)
+        if (currentUnit.Stats.IsPlayer)
         {
-            Debug.Log($"{currentUnit.Stats.name} is dead. Going to next turn...");
-            StartNextTurn();
             return;
         }
+
+        if (currentUnit.IsDead)
+            {
+                Debug.Log($"{currentUnit.Stats.name} is dead. Going to next turn...");
+                StartNextTurn();
+                return;
+            }
 
         TakeAction(currentUnit);
     }

@@ -20,4 +20,9 @@ public class CombatUnit : MonoBehaviour
 
         Debug.Log($"{Stats.UnitName} takes {amount} damage! HP now {CurrentHP}");
     }
+
+    public void OnClick()
+    {
+        CombatManager.Instance.TakePlayerAction(this);
+    }
 }
