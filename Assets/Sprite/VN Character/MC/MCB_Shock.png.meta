@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MCB_Shock_0: -743073850478974451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

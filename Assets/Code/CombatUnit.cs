@@ -19,6 +19,11 @@ public class CombatUnit : MonoBehaviour
         CurrentHP = Mathf.Max(CurrentHP, 0);
 
         Debug.Log($"{Stats.UnitName} takes {amount} damage! HP now {CurrentHP}");
+
+        if (IsDead)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void OnClick()
