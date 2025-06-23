@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ed85299f711750048aec11f533e9c81e
+guid: 052cc3909e637d34e921f08cb566bda4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 518904343662534100
-    second: ales-krivec-okzxVsJNxXc-unsplash_0
+      213: 5623623383517217337
+    second: MCB_Sad_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ales-krivec-okzxVsJNxXc-unsplash_0
+      name: MCB_Sad_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 7360
-        height: 4912
+        x: 6
+        y: 123
+        width: 2036
+        height: 3390
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4dd996450c4833700800000000000000
-      internalID: 518904343662534100
+      spriteID: 932cf1d0caf1b0e40800000000000000
+      internalID: 5623623383517217337
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      ales-krivec-okzxVsJNxXc-unsplash_0: 518904343662534100
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
