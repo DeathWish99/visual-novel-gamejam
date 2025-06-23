@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Player
   isPlayer: 1
-  maxHP: 1
+  maxHP: 10
   attack: 2
   defence: 0
   speed: 3
