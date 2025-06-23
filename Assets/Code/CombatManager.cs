@@ -46,6 +46,11 @@ public class CombatManager : MonoBehaviour
         Invoke(nameof(StartNextTurn), 1.0f);
     }
 
+    public void OnPlayerDied()
+    {
+
+    }
+
     private void SetUp()
     {
         SetUpPrefabMap();
@@ -141,11 +146,11 @@ public class CombatManager : MonoBehaviour
         }
 
         if (currentUnit.IsDead)
-            {
-                Debug.Log($"{currentUnit.Stats.name} is dead. Going to next turn...");
-                StartNextTurn();
-                return;
-            }
+        {
+            Debug.Log($"{currentUnit.Stats.name} is dead. Going to next turn...");
+            StartNextTurn();
+            return;
+        }
 
         TakeAction(currentUnit);
     }
@@ -164,7 +169,7 @@ public class CombatManager : MonoBehaviour
 
         target.TakeDamage(damage);
 
-        Invoke(nameof(StartNextTurn), 1.0f); // delay for clarity
+        Invoke(nameof(StartNextTurn), 1.0f);
     }
 
     private CombatUnit PickTarget(CombatUnit currentUnit)
@@ -187,6 +192,7 @@ public class CombatManager : MonoBehaviour
         if (isPlayerDead)
         {
             Debug.Log("You are dead.");
+            Invoke(nameof(ReloadScene), 3.0f);
             return true;
         }
 
