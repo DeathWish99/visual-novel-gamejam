@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VisualNovel.GameJam.Manager;
 
 public class CombatManager : MonoBehaviour
 {
@@ -35,6 +36,14 @@ public class CombatManager : MonoBehaviour
         SetUpUnits();
         SetUpTurnOrder();
         StartNextTurn();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UniversalMenuManager.Instance.OnOpenPauseMenu?.Invoke();
+        }
     }
 
     public void TakePlayerAction(CombatUnit target)
