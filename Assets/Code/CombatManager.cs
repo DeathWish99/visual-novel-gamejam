@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -168,6 +169,11 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
+        foreach (var unit in Units)
+        {
+            unit.OnEndTurn();
+        }
+
         CombatUnit currentUnit = TurnQueue.Dequeue();
         Debug.Log($"Current Turn: {currentUnit.Stats.UnitName}");
 
@@ -197,8 +203,16 @@ public class CombatManager : MonoBehaviour
 
         DisableSkillButtons();
 
+        StartCoroutine(InvokeAIAction(currentUnit, 1.0f));
+    }
+
+
+    private IEnumerator InvokeAIAction(CombatUnit currentUnit, float delay)
+    {
+        yield return new WaitForSeconds(delay);
         TakeAction(currentUnit);
     }
+
 
     private void TakeAction(CombatUnit currentUnit)
     {

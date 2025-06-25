@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CombatUnit : MonoBehaviour
+public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private CombatUnitStats stats;
 
@@ -17,6 +18,7 @@ public class CombatUnit : MonoBehaviour
     private int AttackBuff { get; set; }
     private Image Image { get; set; }
     private Color OriginalColour { get; set; }
+    private Color CurrentColour { get; set; }
 
     private void Awake()
     {
@@ -49,8 +51,12 @@ public class CombatUnit : MonoBehaviour
     {
         ReduceActiveEffectRemainingDurations();
 
-        Debug.Log($"[TEST] {Stats.UnitName} Current HP: {CurrentHP}");
-        Debug.Log($"[TEST] {Stats.UnitName} Attack Buff: {AttackBuff}");
+        Image.color = Color.yellow;
+    }
+
+    public void OnEndTurn()
+    {
+        Image.color = OriginalColour;
     }
 
     public void TakeDamage(int rawDamage)
@@ -60,8 +66,6 @@ public class CombatUnit : MonoBehaviour
 
         CurrentHP -= finalDamage;
         CurrentHP = Mathf.Max(CurrentHP, 0);
-
-        Debug.Log($"[TEST] {gameObject.name} Takes Damage: {finalDamage} from raw damage {rawDamage}");
 
         if (IsDead)
         {
@@ -130,5 +134,16 @@ public class CombatUnit : MonoBehaviour
         }
 
         Image.color = OriginalColour;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        CurrentColour = Image.color;
+        Image.color = Color.magenta;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Image.color = CurrentColour;
     }
 }
