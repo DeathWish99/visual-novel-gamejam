@@ -6,6 +6,7 @@ public class CombatUnitStats : ScriptableObject
 {
     [SerializeField] private string unitName;
     [SerializeField] private bool isPlayer;
+    [SerializeField] private bool isCompanion;
     [SerializeField] private int maxHP;
     [SerializeField] private int attack;
     [SerializeField] private int defence;
@@ -17,11 +18,5 @@ public class CombatUnitStats : ScriptableObject
     public int Defence => defence;
     public int Speed => speed;
     public bool IsPlayer => isPlayer;
-
-    public int CalculateDamage(int targetDefence)
-    {
-        int raw = attack - targetDefence;
-        
-        return Mathf.Max(raw, 0);
-    }
+    public bool IsCompanion => isCompanion;
 }
