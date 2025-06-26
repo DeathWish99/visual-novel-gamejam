@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VisualNovel.GameJam.Manager;
 
 public class CombatManager : MonoBehaviour
 {
@@ -10,16 +12,21 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private RectTransform playerPosition;
     [SerializeField] private RectTransform companionPosition;
     [SerializeField] private List<RectTransform> enemyPositions;
+    [SerializeField] private List<SkillButton> skillButtons;
+
+    private List<SkillButton> SkillButtons => skillButtons;
 
     public static CombatManager Instance { get; private set; }
+    public InputMode CurrentInputMode { get; private set; }
+    public Skill SelectedSkill { get; private set; }
     private Dictionary<EnemyType, GameObject> PrefabMap { get; set; }
     private Queue<CombatUnit> TurnQueue { get; set; }
     private List<CombatUnit> Units { get; set; }
     private List<CombatUnit> PlayerUnits { get; set; }
     private List<CombatUnit> EnemyUnits { get; set; }
     private CombatUnit PlayerUnit { get; set; }
-    private int SetupCount { get; set; }
-    private bool HasStarted { get; set; }
+    private SkillExecutor SkillExecutor { get; set; }
+    private int SkillButtonTimer { get; set; }
 
     private void Awake()
     {
@@ -37,9 +44,32 @@ public class CombatManager : MonoBehaviour
         StartNextTurn();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UniversalMenuManager.Instance.OnOpenPauseMenu?.Invoke();
+        }
+    }
+
+    public void OnSkillButtonClick(Skill skill)
+    {
+        DisableSkillButtons();
+        CurrentInputMode = InputMode.SKILL;
+        SelectedSkill = skill;
+    }
+
+    public void ExecuteSkill(CombatUnit target)
+    {
+        CurrentInputMode = InputMode.ATTACK;
+        SkillExecutor.Execute(SelectedSkill, PlayerUnit, target);
+        SkillButtonTimer = 2;
+        Invoke(nameof(StartNextTurn), 1.0f);
+    }
+
     public void TakePlayerAction(CombatUnit target)
     {
-        int damage = PlayerUnit.Stats.CalculateDamage(target.Stats.Defence);
+        int damage = PlayerUnit.Attack;
 
         target.TakeDamage(damage);
 
@@ -53,6 +83,8 @@ public class CombatManager : MonoBehaviour
 
     private void SetUp()
     {
+        SkillExecutor = gameObject.GetComponent<SkillExecutor>();
+
         SetUpPrefabMap();
 
         TurnQueue = new Queue<CombatUnit>();
@@ -137,13 +169,13 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
+        foreach (var unit in Units)
+        {
+            unit.OnEndTurn();
+        }
+
         CombatUnit currentUnit = TurnQueue.Dequeue();
         Debug.Log($"Current Turn: {currentUnit.Stats.UnitName}");
-
-        if (currentUnit.Stats.IsPlayer)
-        {
-            return;
-        }
 
         if (currentUnit.IsDead)
         {
@@ -152,8 +184,35 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
+        currentUnit.OnStartTurn();
+
+        if (currentUnit.Stats.IsPlayer)
+        {
+            if (SkillButtonTimer > 0)
+            {
+                SkillButtonTimer--;
+            }
+
+            if (SkillButtonTimer <= 0)
+            {
+                EnableSkillButtons();
+            }
+
+            return;
+        }
+
+        DisableSkillButtons();
+
+        StartCoroutine(InvokeAIAction(currentUnit, 1.0f));
+    }
+
+
+    private IEnumerator InvokeAIAction(CombatUnit currentUnit, float delay)
+    {
+        yield return new WaitForSeconds(delay);
         TakeAction(currentUnit);
     }
+
 
     private void TakeAction(CombatUnit currentUnit)
     {
@@ -165,9 +224,7 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-        int damage = currentUnit.Stats.CalculateDamage(target.Stats.Defence);
-
-        target.TakeDamage(damage);
+        target.TakeDamage(currentUnit.Attack);
 
         Invoke(nameof(StartNextTurn), 1.0f);
     }
@@ -208,5 +265,21 @@ public class CombatManager : MonoBehaviour
     private void ReloadScene()
     {
         SceneManager.LoadScene("CombatScene");
+    }
+
+    private void DisableSkillButtons()
+    {
+        foreach (var button in SkillButtons)
+        {
+            button.Disable();
+        }
+    }
+
+    private void EnableSkillButtons()
+    {
+        foreach (var button in SkillButtons)
+        {
+            button.Enable();
+        }
     }
 }

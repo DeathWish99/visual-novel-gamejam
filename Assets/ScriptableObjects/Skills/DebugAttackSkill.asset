@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bd2fff70cc40649ac41d9ae82c6875, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 96166a4f04d9171459e24d248806d80f, type: 3}
+  m_Name: DebugAttackSkill
   m_EditorClassIdentifier: 
-  unitName: Player
-  isPlayer: 1
-  isCompanion: 0
-  maxHP: 10
-  attack: 1
-  defence: 0
-  speed: 3
+  skillName: Debug Attack Skill
+  description: 
+  icon: {fileID: 0}
+  type: 0
+  canTargetPlayer: 0
+  canTargetCompanion: 0
+  canTargetEnemy: 1
+  damagePercent: 1000
+  critRate: 50
