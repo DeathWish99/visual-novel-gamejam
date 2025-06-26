@@ -1614,6 +1614,51 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 540}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &174516426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 174516428}
+  - component: {fileID: 174516427}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &174516427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174516426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9fa4583a4bc7a4f9b1328e46453f6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatSceneName: CombatScene
+--- !u!4 &174516428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174516426}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &175936135
 GameObject:
   m_ObjectHideFlags: 0
@@ -8167,7 +8212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 412413395}
+  selectedFlowchart: {fileID: 1968669498}
 --- !u!4 &1914982144
 Transform:
   m_ObjectHideFlags: 1
@@ -9983,6 +10028,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dialog1-Flow
       objectReference: {fileID: 0}
+    - target: {fileID: 6578613616346291699, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
+      propertyPath: 'selectedCommands.Array.data[0]'
+      value: 
+      objectReference: {fileID: 606934433011142089}
     - target: {fileID: 6734224738180607957, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
       propertyPath: character
       value: 
@@ -10003,6 +10052,14 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 175936137}
+    - target: {fileID: 7593413611385196539, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
+      propertyPath: commandList.Array.size
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593413611385196539, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
+      propertyPath: 'commandList.Array.data[46]'
+      value: 
+      objectReference: {fileID: 606934433011142089}
     - target: {fileID: 7832242617382372197, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
       propertyPath: character
       value: 
@@ -10096,6 +10153,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
+--- !u!114 &606934433011142089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5994189295653507504, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
+  m_PrefabInstance: {fileID: 606934433011142087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f901845ceca72b7489525108ae480e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8094975378472134939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10156,10 +10224,18 @@ PrefabInstance:
       propertyPath: 'targetObjects.Array.data[0]'
       value: 
       objectReference: {fileID: 933666302}
+    - target: {fileID: 677855395668571522, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: 'targetObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 759742939}
     - target: {fileID: 886576836560551437, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 1294512301}
+    - target: {fileID: 895149301361968900, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: 'targetObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 759742939}
     - target: {fileID: 970331354544669906, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10172,14 +10248,14 @@ PrefabInstance:
       propertyPath: setSayDialog
       value: 
       objectReference: {fileID: 2035251769}
-    - target: {fileID: 1044658030153733241, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: 'images.Array.data[0]'
-      value: 
-      objectReference: {fileID: 933666304}
     - target: {fileID: 1146685763920540110, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 1294512301}
+    - target: {fileID: 1238744978054771757, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: nodeRect.y
+      value: 281
+      objectReference: {fileID: 0}
     - target: {fileID: 1323077425777377963, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10212,10 +10288,22 @@ PrefabInstance:
       propertyPath: targetFlowchart
       value: 
       objectReference: {fileID: 1968669498}
+    - target: {fileID: 1830010365129643216, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 905585254}
+    - target: {fileID: 1830010365129643216, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: toPosition
+      value: 
+      objectReference: {fileID: 1245725709}
     - target: {fileID: 1901194608430457923, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 1294512301}
+    - target: {fileID: 1928123114508355081, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1179038027}
     - target: {fileID: 2087395159376470227, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10296,6 +10384,10 @@ PrefabInstance:
       propertyPath: setSayDialog
       value: 
       objectReference: {fileID: 2035251769}
+    - target: {fileID: 2411036315787727504, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 905585254}
     - target: {fileID: 2505490018913618142, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10304,10 +10396,6 @@ PrefabInstance:
       propertyPath: _targetGameObject.gameObjectVal
       value: 
       objectReference: {fileID: 759742939}
-    - target: {fileID: 2538942539715994244, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: 'targetObjects.Array.data[0]'
-      value: 
-      objectReference: {fileID: 933666302}
     - target: {fileID: 2556805871616013068, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10316,6 +10404,10 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1294512301}
+    - target: {fileID: 2612137217398456960, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 616722336}
     - target: {fileID: 2613592354539563310, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10340,6 +10432,14 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1294512301}
+    - target: {fileID: 3265800392690734114, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1179038027}
+    - target: {fileID: 3265800392690734114, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: toPosition
+      value: 
+      objectReference: {fileID: 1808863391}
     - target: {fileID: 3290616635035662255, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10404,6 +10504,10 @@ PrefabInstance:
       propertyPath: setSayDialog
       value: 
       objectReference: {fileID: 2035251769}
+    - target: {fileID: 3647215154369728829, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 905585254}
     - target: {fileID: 3763851239017537555, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10472,6 +10576,14 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 175936137}
+    - target: {fileID: 4540870043512681628, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 905585254}
+    - target: {fileID: 4825611341076003338, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: _targetGameObject.gameObjectVal
+      value: 
+      objectReference: {fileID: 759742939}
     - target: {fileID: 4883928525741776397, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10480,6 +10592,10 @@ PrefabInstance:
       propertyPath: setSayDialog
       value: 
       objectReference: {fileID: 2035251769}
+    - target: {fileID: 4893634489322506071, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: _targetGameObject.gameObjectVal
+      value: 
+      objectReference: {fileID: 759742939}
     - target: {fileID: 4996268727157308042, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: 'targetObjects.Array.data[0]'
       value: 
@@ -10508,6 +10624,14 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1294512301}
+    - target: {fileID: 5389682669063857482, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 616722336}
+    - target: {fileID: 5389682669063857482, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: toPosition
+      value: 
+      objectReference: {fileID: 1752432370}
     - target: {fileID: 5433432162109285296, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: _targetGameObject.gameObjectVal
       value: 
@@ -10520,10 +10644,10 @@ PrefabInstance:
       propertyPath: toPosition
       value: 
       objectReference: {fileID: 1808863391}
-    - target: {fileID: 5582991533562621009, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: 'targetObjects.Array.data[0]'
+    - target: {fileID: 5746408735884184904, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
       value: 
-      objectReference: {fileID: 933666302}
+      objectReference: {fileID: 175936137}
     - target: {fileID: 5955875984722970645, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: setMenuDialog
       value: 
@@ -10589,8 +10713,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 175936137}
     - target: {fileID: 7115056097035146474, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: selectedCommands.Array.size
-      value: 0
+      propertyPath: selectedBlocks.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7177036423131877862, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
@@ -10612,10 +10736,6 @@ PrefabInstance:
       propertyPath: toPosition
       value: 
       objectReference: {fileID: 1808863391}
-    - target: {fileID: 7467216118581668999, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: 'targetObjects.Array.data[0]'
-      value: 
-      objectReference: {fileID: 933666302}
     - target: {fileID: 7531098726883644137, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10664,14 +10784,18 @@ PrefabInstance:
       propertyPath: toPosition
       value: 
       objectReference: {fileID: 1245725709}
-    - target: {fileID: 8477462147986398195, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: 'images.Array.data[0]'
+    - target: {fileID: 8272306094167300941, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
       value: 
-      objectReference: {fileID: 933666304}
+      objectReference: {fileID: 616722336}
     - target: {fileID: 8501801591014146764, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 175936137}
+    - target: {fileID: 8524871691868006218, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 79240309}
     - target: {fileID: 8533474884437610169, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
@@ -10692,18 +10816,10 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 175936137}
-    - target: {fileID: 9102752211768863894, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: character
-      value: 
-      objectReference: {fileID: 79240309}
     - target: {fileID: 9126413613379799963, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 175936137}
-    - target: {fileID: 9168730935924049562, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
-      propertyPath: 'targetObjects.Array.data[0]'
-      value: 
-      objectReference: {fileID: 933666302}
     - target: {fileID: 9210215715692448740, guid: 52cd0e89318a3d7448dbd132ffe84cf8, type: 3}
       propertyPath: 'images.Array.data[0]'
       value: 
@@ -10725,3 +10841,4 @@ SceneRoots:
   - {fileID: 1420601193}
   - {fileID: 562509814}
   - {fileID: 1741968772}
+  - {fileID: 174516428}

@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 275027110956057470}
   - component: {fileID: 1777846309544906512}
   - component: {fileID: 1931549570583013005}
+  - component: {fileID: 5994189295653507504}
   m_Layer: 0
   m_Name: Dialog1-Flow
   m_TagString: Untagged
@@ -73,7 +74,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6245767003701596898}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -107,7 +108,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 7593413611385196539}
   selectedCommands:
-  - {fileID: 1931549570583013005}
+  - {fileID: 5994189295653507504}
   variables: []
   description: 
   stepPause: 0
@@ -190,6 +191,7 @@ MonoBehaviour:
   - {fileID: 275027110956057470}
   - {fileID: 1777846309544906512}
   - {fileID: 1931549570583013005}
+  - {fileID: 5994189295653507504}
   suppressAllAutoSelections: 0
 --- !u!114 &3424176731913908062
 MonoBehaviour:
@@ -1449,3 +1451,18 @@ MonoBehaviour:
   targetAlpha:
     floatRef: {fileID: 0}
     floatVal: 0
+--- !u!114 &5994189295653507504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245767003701596898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f901845ceca72b7489525108ae480e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 176
+  indentLevel: 0
+  parameters: {fileID: 11400000, guid: 0d21332e0f2d54d4cb3a3ec06b68e535, type: 2}

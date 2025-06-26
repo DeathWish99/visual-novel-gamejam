@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VisualNovel.unity
     guid: 2241187a8bae4874d929512d7c64fb64
+  - enabled: 1
+    path: Assets/Scenes/CombatScene.unity
+    guid: de04bcdcd88614c42b55508a9e333a2e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

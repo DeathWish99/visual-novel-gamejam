@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using VisualNovel.GameJam.Manager;
 
 [System.Serializable]
 public class GameManager : MonoBehaviour
@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     public void LoadCombatScene(CombatSceneParameters parameters)
     {
         CurrentParameters = parameters;
-
-        SceneManager.LoadScene(combatSceneName);
+        SceneLoaderManager.Instance.LoadSceneAdditive(combatSceneName);
     }
 }
