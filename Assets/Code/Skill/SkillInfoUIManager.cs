@@ -17,6 +17,14 @@ public class SkillInfoUIManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (GameManager.Instance.CurrentParameters.DisableKills)
+        {
+            skillInfoUI.gameObject.SetActive(false);
+        }
+    }
+
     public void ShowSkill(Skill skill) => skillInfoUI.ShowSkill(skill);
     public void LockSkillDisplay(Skill skill) => skillInfoUI.LockSkillDisplay(skill);
     public void Unlock() => skillInfoUI.UnlockSkillDisplay();

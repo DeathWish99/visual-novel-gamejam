@@ -24,6 +24,7 @@ public class CombatManager : MonoBehaviour
     public static event System.Action<CombatUnit> OnTurnChanged;
     public static event System.Action OnSkillUsed;
     public static event System.Action OnPlayerDied;
+    public static event System.Action DisableSkills;
 
     // --------------------- Private Fields ---------------------
     private Dictionary<CombatUnit, GameObject> UnitIcons { get; set; }
@@ -52,6 +53,12 @@ public class CombatManager : MonoBehaviour
         SetUp();
         SetUpUnits();
         SetUpTurnOrder();
+
+        if (GameManager.Instance.CurrentParameters.DisableKills)
+        {
+            DisableSkills?.Invoke();
+        }
+
         turnManager.StartNextTurn();
     }
 
@@ -95,7 +102,12 @@ public class CombatManager : MonoBehaviour
     {
         CurrentInputMode = InputMode.NONE;
 
-        SkillExecutor.Execute(SelectedSkill, PlayerUnit, target);
+        ExecuteSkill(SelectedSkill, PlayerUnit, target);
+    }
+
+    public void ExecuteSkill(Skill skill, CombatUnit user, CombatUnit target)
+    {
+        SkillExecutor.Execute(skill, user, target);
         OnSkillUsed?.Invoke();
         Invoke(nameof(EndCurrentTurn), 1.0f);
     }

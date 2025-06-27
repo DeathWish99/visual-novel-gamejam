@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0348e72df9bea24487f7db3680027ba, type: 3}
-  m_Name: DebugBuffSkill
+  m_Script: {fileID: 11500000, guid: 96166a4f04d9171459e24d248806d80f, type: 3}
+  m_Name: Brutal Strike
   m_EditorClassIdentifier: 
-  skillName: Debug Buff Skill
+  skillName: Brutal Strike
   description: 
   icon: {fileID: 0}
-  type: 1
-  canTargetPlayer: 0
+  type: 0
+  canTargetPlayer: 1
   canTargetCompanion: 1
   canTargetEnemy: 0
-  buffedStats: 0000000001000000
-  buffAmount: 10
-  duration: 3
+  damagePercent: 200
+  critRate: 0

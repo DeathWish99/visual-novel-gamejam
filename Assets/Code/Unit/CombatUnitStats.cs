@@ -19,6 +19,10 @@ public class CombatUnitStats : ScriptableObject
     [SerializeField] private int defence;
     [SerializeField] private int speed;
 
+    [Header("Enemy-specific Stats")]
+    [Tooltip("This is only used for enemies.")]
+    [SerializeField] private bool hasSkill;
+
     // Public Properties
     public string UnitName => unitName;
     public Sprite Icon => icon;
@@ -30,4 +34,6 @@ public class CombatUnitStats : ScriptableObject
     public int Attack => attack;
     public int Defence => defence;
     public int Speed => speed;
+
+    public bool HasSkill => hasSkill;
 }

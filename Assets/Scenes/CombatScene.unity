@@ -370,7 +370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stats
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -881,7 +881,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Skill Name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1534,7 +1534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2230,7 +2230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HP
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2366,7 +2366,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stats
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2502,7 +2502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enemy Name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2654,6 +2654,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 568963242}
     - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
+      propertyPath: enemyPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
       propertyPath: 'enemyPositions.Array.data[0]'
       value: 
       objectReference: {fileID: 560983266}
@@ -2661,6 +2665,14 @@ PrefabInstance:
       propertyPath: 'enemyPositions.Array.data[1]'
       value: 
       objectReference: {fileID: 1644485063}
+    - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
+      propertyPath: enemyPrefabs.Array.data[1].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
+      propertyPath: enemyPrefabs.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 8147018372119368212, guid: d668ad8ff47eb9f449dc013c9549805f, type: 3}
     - target: {fileID: 7831769733373495920, guid: 4b453291e719cc34697170316058ef96, type: 3}
       propertyPath: gameOverPanel
       value: 

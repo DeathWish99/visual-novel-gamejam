@@ -14,6 +14,7 @@ public class CombatUIController : MonoBehaviour
         CombatManager.OnTurnChanged += HandleTurnChanged;
         CombatManager.OnSkillUsed += HandleSkillUsed;
         CombatManager.OnPlayerDied += HandlePlayerDied;
+        CombatManager.DisableSkills += HandleDisableSkills;
     }
 
     private void OnDisable()
@@ -49,6 +50,17 @@ public class CombatUIController : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         CombatManager.Instance.ReloadScene();
+    }
+
+    private void HandleDisableSkills()
+    {
+        CombatManager.OnTurnChanged -= HandleTurnChanged;
+        CombatManager.OnSkillUsed -= HandleSkillUsed;
+
+        foreach (var button in skillButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
     }
 
     private bool PlayerCanUseSkill()

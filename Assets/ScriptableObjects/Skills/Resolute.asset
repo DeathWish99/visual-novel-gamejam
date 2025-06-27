@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bd2fff70cc40649ac41d9ae82c6875, type: 3}
-  m_Name: Orc
+  m_Script: {fileID: 11500000, guid: 96166a4f04d9171459e24d248806d80f, type: 3}
+  m_Name: Resolute
   m_EditorClassIdentifier: 
-  unitName: Goblin
+  skillName: Resolute!
+  description: 
   icon: {fileID: 0}
-  isPlayer: 0
-  isCompanion: 0
-  maxHP: 50
-  attack: 15
-  defence: 4
-  speed: 5
-  hasSkill: 1
+  type: 0
+  canTargetPlayer: 0
+  canTargetCompanion: 0
+  canTargetEnemy: 1
+  damagePercent: 500
+  critRate: 0
