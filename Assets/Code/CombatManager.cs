@@ -69,6 +69,8 @@ public class CombatManager : MonoBehaviour
 
     public void TakePlayerAction(CombatUnit target)
     {
+        PlayerUnit.OnAttack();
+
         int damage = PlayerUnit.Attack;
 
         target.TakeDamage(damage);

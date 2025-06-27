@@ -8,6 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215202287898923358, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5453584345069410138, guid: 8e60781d134c84c459413c2dd8ed9853, type: 3}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3810973030523887739, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_text
       value: Heroine
@@ -129,7 +153,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e322455c48490dc4990af2d88a81ebc7, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1586389208490607023, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}

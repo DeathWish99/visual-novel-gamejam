@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CombatUnit : MonoBehaviour
 {
     [SerializeField] private CombatUnitStats stats;
 
@@ -19,6 +19,8 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private Image Image { get; set; }
     private Color OriginalColour { get; set; }
     private Color CurrentColour { get; set; }
+    private Animator Animator { get; set; }
+    private const string ATTACK_TRIGGER = "Attack";
 
     private void Awake()
     {
@@ -26,6 +28,7 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         ActiveEffects = new List<ActiveEffect>();
         Image = gameObject.GetComponent<Image>();
         OriginalColour = Image.color;
+        Animator = gameObject.GetComponent<Animator>();
     }
 
     public void OnClick()
@@ -50,13 +53,16 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnStartTurn()
     {
         ReduceActiveEffectRemainingDurations();
-
-        Image.color = Color.yellow;
     }
 
     public void OnEndTurn()
     {
         Image.color = OriginalColour;
+    }
+
+    public void OnAttack()
+    {
+        Animator.SetTrigger(ATTACK_TRIGGER);
     }
 
     public void TakeDamage(int rawDamage)
@@ -88,8 +94,6 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
 
         ActiveEffects.Add(new ActiveEffect(stat, amount, duration));
-
-        StartCoroutine(FlashColour(Color.blue));
     }
 
     private void ReduceActiveEffectRemainingDurations()
@@ -134,16 +138,5 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
 
         Image.color = OriginalColour;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        CurrentColour = Image.color;
-        Image.color = Color.magenta;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        Image.color = CurrentColour;
     }
 }
