@@ -228,7 +228,7 @@ public class CombatManager : MonoBehaviour
 
     private void ReloadScene()
     {
-        SceneManager.LoadScene("CombatScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // --------------------- UI Helpers ---------------------
