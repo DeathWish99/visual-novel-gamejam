@@ -21,4 +21,9 @@ public class AttackSkill : Skill
 
         target.TakeDamage((int)damage);
     }
+
+    public override string GetStatsText()
+    {
+        return $"DMG %: {damagePercent}\nCrit Rate: {CritRate}";
+    }
 }
