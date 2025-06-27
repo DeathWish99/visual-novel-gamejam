@@ -87,7 +87,10 @@ public class CombatUnit : MonoBehaviour
         CurrentHP = Mathf.Max(CurrentHP, 0);
 
         if (IsDead)
+        {
             gameObject.SetActive(false);
+            return;
+        }
 
         StartCoroutine(FlashColour(Color.red));
     }

@@ -57,7 +57,10 @@ public class CombatManager : MonoBehaviour
         }
 
         Instance = this;
+    }
 
+    private void Start()
+    {
         SetUp();
         SetUpUnits();
         SetUpTurnOrder();
@@ -278,7 +281,7 @@ public class CombatManager : MonoBehaviour
 
             if (iconImage != null && unit.Stats.Icon)
             {
-                iconImage.sprite = unit.Stats.Icon.sprite;
+                iconImage.sprite = unit.Stats.Icon;
             }
 
             UnitIcons.Add(unit, icon);

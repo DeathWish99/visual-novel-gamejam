@@ -7,7 +7,7 @@ public class CombatUnitStats : ScriptableObject
 {
     [Header("Identity")]
     [SerializeField] private string unitName;
-    [SerializeField] private Image icon;
+    [SerializeField] private Sprite icon;
 
     [Header("Allegiance")]
     [SerializeField] private bool isPlayer;
@@ -21,7 +21,7 @@ public class CombatUnitStats : ScriptableObject
 
     // Public Properties
     public string UnitName => unitName;
-    public Image Icon => icon;
+    public Sprite Icon => icon;
 
     public bool IsPlayer => isPlayer;
     public bool IsCompanion => isCompanion;
