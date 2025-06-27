@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using VisualNovel.GameJam.Manager;
 
 public class CombatManager : MonoBehaviour
@@ -20,6 +21,10 @@ public class CombatManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private List<SkillButton> skillButtons;
 
+    [Header("Turn Order UI")]
+    [SerializeField] private RectTransform turnOrderBar;
+    [SerializeField] private GameObject turnOrderIconPrefab;
+
     // --------------------- Properties ---------------------
     public static CombatManager Instance { get; private set; }
     public InputMode CurrentInputMode { get; private set; }
@@ -28,10 +33,12 @@ public class CombatManager : MonoBehaviour
 
     // --------------------- Private Fields ---------------------
     private Dictionary<EnemyType, GameObject> PrefabMap { get; set; }
+    private Dictionary<CombatUnit, GameObject> UnitIcons { get; set; }
     private Queue<CombatUnit> TurnQueue { get; set; }
     private List<CombatUnit> Units { get; set; }
     private List<CombatUnit> PlayerUnits { get; set; }
     private List<CombatUnit> EnemyUnits { get; set; }
+    private List<CombatUnit> IconDisplayOrder { get; set; }
     private CombatUnit PlayerUnit { get; set; }
     private SkillExecutor SkillExecutor { get; set; }
     private int SkillButtonTimer { get; set; }
@@ -93,6 +100,8 @@ public class CombatManager : MonoBehaviour
     // --------------------- Setup Methods ---------------------
     private void SetUp()
     {
+        UnitIcons = new();
+        IconDisplayOrder = new();
         SkillExecutor = GetComponent<SkillExecutor>();
         SetUpPrefabMap();
         TurnQueue = new Queue<CombatUnit>();
@@ -126,7 +135,10 @@ public class CombatManager : MonoBehaviour
             CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
             Units.Add(companionUnit);
             PlayerUnits.Add(companionUnit);
+            IconDisplayOrder.Add(companionUnit);
         }
+
+        IconDisplayOrder.Add(PlayerUnit);
 
         int enemyPositionCounter = 0;
         foreach (var enemyType in parameters.Enemies)
@@ -136,8 +148,23 @@ public class CombatManager : MonoBehaviour
                 CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter]).GetComponent<CombatUnit>();
                 Units.Add(enemyUnit);
                 EnemyUnits.Add(enemyUnit);
+                IconDisplayOrder.Add(enemyUnit);
                 enemyPositionCounter++;
             }
+        }
+
+        foreach (CombatUnit unit in IconDisplayOrder)
+        {
+            GameObject icon = Instantiate(turnOrderIconPrefab, turnOrderBar);
+
+            Image iconImage = icon.GetComponent<Image>();
+
+            if (iconImage != null && unit.Stats.Icon)
+            {
+                iconImage.sprite = unit.Stats.Icon.sprite;
+            }
+
+            UnitIcons.Add(unit, icon);
         }
     }
 
@@ -184,9 +211,13 @@ public class CombatManager : MonoBehaviour
         if (currentUnit.IsDead)
         {
             Debug.Log($"{currentUnit.Stats.name} is dead. Going to next turn...");
+            UpdateIconStates();
             StartNextTurn();
             return;
         }
+
+        UpdateIconStates();
+        HighlightCurrentUnitIcon(currentUnit);
 
         currentUnit.OnStartTurn();
 
@@ -278,6 +309,51 @@ public class CombatManager : MonoBehaviour
         foreach (var button in SkillButtons)
         {
             button.Enable();
+        }
+    }
+
+    private void HighlightCurrentUnitIcon(CombatUnit currentUnit)
+    {
+        foreach (var pair in UnitIcons)
+        {
+            bool isCurrent = pair.Key == currentUnit;
+
+            Vector3 targetScale = isCurrent ? Vector3.one * 1.3f : Vector3.one;
+
+            StartCoroutine(ScaleIcon(pair.Value, targetScale, 0.3f));
+        }
+    }
+
+    private IEnumerator ScaleIcon(GameObject icon, Vector3 targetScale, float duration)
+    {
+        Vector3 startScale = icon.transform.localScale;
+        float time = 0;
+
+        while (time < duration)
+        {
+            icon.transform.localScale = Vector3.Lerp(startScale, targetScale, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        icon.transform.localScale = targetScale;
+    }
+
+    private void UpdateIconStates()
+    {
+        foreach (var pair in UnitIcons)
+        {
+            var unit = pair.Key;
+            var icon = pair.Value;
+            var canvasGroup = icon.GetComponent<CanvasGroup>();
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = unit.IsDead ? 0.3f : 1f;
+                icon.GetComponent<Image>().color = unit.IsDead 
+                    ? new Color(1f, 1f, 1f, 0.3f)
+                    : Color.white;
+            }
         }
     }
 }
