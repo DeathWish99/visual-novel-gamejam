@@ -1305,30 +1305,6 @@ PrefabInstance:
       propertyPath: turnOrderBar
       value: 
       objectReference: {fileID: 604553197}
-    - target: {fileID: 1383771520596986565, guid: 4b453291e719cc34697170316058ef96, type: 3}
-      propertyPath: playerPosition
-      value: 
-      objectReference: {fileID: 764195550}
-    - target: {fileID: 1383771520596986565, guid: 4b453291e719cc34697170316058ef96, type: 3}
-      propertyPath: companionPosition
-      value: 
-      objectReference: {fileID: 568963242}
-    - target: {fileID: 1383771520596986565, guid: 4b453291e719cc34697170316058ef96, type: 3}
-      propertyPath: 'skillButtons.Array.data[0]'
-      value: 
-      objectReference: {fileID: 768496342}
-    - target: {fileID: 1383771520596986565, guid: 4b453291e719cc34697170316058ef96, type: 3}
-      propertyPath: 'skillButtons.Array.data[1]'
-      value: 
-      objectReference: {fileID: 679046887}
-    - target: {fileID: 1383771520596986565, guid: 4b453291e719cc34697170316058ef96, type: 3}
-      propertyPath: 'enemyPositions.Array.data[0]'
-      value: 
-      objectReference: {fileID: 560983266}
-    - target: {fileID: 1383771520596986565, guid: 4b453291e719cc34697170316058ef96, type: 3}
-      propertyPath: 'enemyPositions.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1644485063}
     - target: {fileID: 2973753457625568731, guid: 4b453291e719cc34697170316058ef96, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1369,6 +1345,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
+      propertyPath: playerPosition
+      value: 
+      objectReference: {fileID: 764195550}
+    - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
+      propertyPath: companionPosition
+      value: 
+      objectReference: {fileID: 568963242}
+    - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
+      propertyPath: 'enemyPositions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 560983266}
+    - target: {fileID: 6357147953473114008, guid: 4b453291e719cc34697170316058ef96, type: 3}
+      propertyPath: 'enemyPositions.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1644485063}
     - target: {fileID: 7831769733373495920, guid: 4b453291e719cc34697170316058ef96, type: 3}
       propertyPath: 'skillButtons.Array.data[0]'
       value: 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1383771520596986565}
   - component: {fileID: 4692402080752821601}
   - component: {fileID: 7831769733373495920}
+  - component: {fileID: 6357147953473114008}
   m_Layer: 0
   m_Name: Combat Manager
   m_TagString: Untagged
@@ -46,19 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07442f6373922b14e94f751633595bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4646013948717087743, guid: f41ce40676905bb41bb58f293738775f, type: 3}
-  companionPrefab: {fileID: 2574124979064888569, guid: ccb624387f968654b95e2e21e393c9ac, type: 3}
-  enemyPrefabs:
-  - type: 0
-    prefab: {fileID: 6169872244996604090, guid: f107d434dc7f94f42956872410a420a4, type: 3}
-  playerPosition: {fileID: 0}
-  companionPosition: {fileID: 0}
-  enemyPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  skillButtons:
-  - {fileID: 0}
-  - {fileID: 0}
+  unitSpawner: {fileID: 6357147953473114008}
   turnOrderBar: {fileID: 0}
   turnOrderIconPrefab: {fileID: 8664125236402416298, guid: a5fb571757173114c91ab53ed0127930, type: 3}
 --- !u!114 &4692402080752821601
@@ -86,5 +75,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &6357147953473114008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85913842958256262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a772e2a384ef11440bdbcd79b37fcbe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 4646013948717087743, guid: f41ce40676905bb41bb58f293738775f, type: 3}
+  companionPrefab: {fileID: 2574124979064888569, guid: ccb624387f968654b95e2e21e393c9ac, type: 3}
+  enemyPrefabs:
+  - type: 0
+    prefab: {fileID: 6169872244996604090, guid: f107d434dc7f94f42956872410a420a4, type: 3}
+  playerPosition: {fileID: 0}
+  companionPosition: {fileID: 0}
+  enemyPositions:
   - {fileID: 0}
   - {fileID: 0}

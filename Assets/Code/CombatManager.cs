@@ -8,18 +8,7 @@ using VisualNovel.GameJam.Manager;
 public class CombatManager : MonoBehaviour
 {
     // --------------------- Serialized Fields ---------------------
-    [Header("Prefabs")]
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject companionPrefab;
-    [SerializeField] private List<EnemyPrefabPair> enemyPrefabs;
-
-    [Header("Positions")]
-    [SerializeField] private RectTransform playerPosition;
-    [SerializeField] private RectTransform companionPosition;
-    [SerializeField] private List<RectTransform> enemyPositions;
-
-    [Header("UI")]
-    [SerializeField] private List<SkillButton> skillButtons;
+    [SerializeField] private UnitSpawner unitSpawner;
 
     [Header("Turn Order UI")]
     [SerializeField] private RectTransform turnOrderBar;
@@ -29,14 +18,12 @@ public class CombatManager : MonoBehaviour
     public static CombatManager Instance { get; private set; }
     public InputMode CurrentInputMode { get; private set; }
     public Skill SelectedSkill { get; private set; }
-    private List<SkillButton> SkillButtons => skillButtons;
 
     // --------------------- Public Fields ---------------------
     public static event System.Action<CombatUnit> OnTurnChanged;
     public static event System.Action OnSkillUsed;
 
     // --------------------- Private Fields ---------------------
-    private Dictionary<EnemyType, GameObject> PrefabMap { get; set; }
     private Dictionary<CombatUnit, GameObject> UnitIcons { get; set; }
     private Queue<CombatUnit> TurnQueue { get; set; }
     private List<CombatUnit> Units { get; set; }
@@ -45,7 +32,6 @@ public class CombatManager : MonoBehaviour
     private List<CombatUnit> IconDisplayOrder { get; set; }
     private CombatUnit PlayerUnit { get; set; }
     private SkillExecutor SkillExecutor { get; set; }
-    private int SkillButtonTimer { get; set; }
 
     // --------------------- Unity Lifecycle ---------------------
     private void Awake()
@@ -101,11 +87,6 @@ public class CombatManager : MonoBehaviour
         Invoke(nameof(StartNextTurn), 1.0f);
     }
 
-    public void OnPlayerDied()
-    {
-        // Placeholder
-    }
-
     public List<CombatUnit> GetTargets(CombatUnit targeter)
     {
         return PlayerUnits.Contains(targeter) ? EnemyUnits : PlayerUnits;
@@ -120,21 +101,7 @@ public class CombatManager : MonoBehaviour
         PlayerUnits = new List<CombatUnit>();
         EnemyUnits = new List<CombatUnit>();
         SkillExecutor = GetComponent<SkillExecutor>();
-
-        SetUpPrefabMap();
-
         TurnQueue = new Queue<CombatUnit>();
-    }
-
-    private void SetUpPrefabMap()
-    {
-        PrefabMap = new Dictionary<EnemyType, GameObject>();
-
-        foreach (var pair in enemyPrefabs)
-        {
-            if (!PrefabMap.ContainsKey(pair.type))
-                PrefabMap.Add(pair.type, pair.prefab);
-        }
     }
 
     private void SetUpUnits()
@@ -169,7 +136,7 @@ public class CombatManager : MonoBehaviour
         bool hasCompanion = GameManager.Instance.CurrentParameters.HasCompanion;
 
         // Spawn player
-        PlayerUnit = Instantiate(playerPrefab, playerPosition).GetComponent<CombatUnit>();
+        PlayerUnit = unitSpawner.SpawnPlayer();
 
         Units.Add(PlayerUnit);
         PlayerUnits.Add(PlayerUnit);
@@ -177,7 +144,7 @@ public class CombatManager : MonoBehaviour
         // Spawn companion
         if (hasCompanion)
         {
-            CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
+            CombatUnit companionUnit = unitSpawner.SpawnCompanion();
 
             Units.Add(companionUnit);
             PlayerUnits.Add(companionUnit);
@@ -189,20 +156,14 @@ public class CombatManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        List<EnemyType> enemies = GameManager.Instance.CurrentParameters.Enemies;
+        List<EnemyType> enemyTypes = GameManager.Instance.CurrentParameters.Enemies;
+        List<CombatUnit> enemies = unitSpawner.SpawnEnemies(enemyTypes);
 
-        int enemyPositionCounter = 0;
-
-        foreach (var enemyType in enemies)
+        foreach (var enemy in enemies)
         {
-            if (PrefabMap.TryGetValue(enemyType, out GameObject prefab))
-            {
-                CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter++]).GetComponent<CombatUnit>();
-
-                Units.Add(enemyUnit);
-                EnemyUnits.Add(enemyUnit);
-                IconDisplayOrder.Add(enemyUnit);
-            }
+            Units.Add(enemy);
+            EnemyUnits.Add(enemy);
+            IconDisplayOrder.Add(enemy);
         }
     }
 
