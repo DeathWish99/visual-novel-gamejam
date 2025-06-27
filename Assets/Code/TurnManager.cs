@@ -34,11 +34,8 @@ public class TurnManager : MonoBehaviour
 
         OnTurnStarted?.Invoke(currentUnit);
 
-        if (!currentUnit.Stats.IsPlayer)
-        {
-            currentUnit.OnStartTurn();
-            currentUnit.StartCoroutine(currentUnit.Agent.TakeTurn(currentUnit, EndTurn));
-        }
+        currentUnit.OnStartTurn();
+        currentUnit.StartCoroutine(currentUnit.Agent.TakeTurn(currentUnit, EndTurn));
     }
 
     public void EndTurn()

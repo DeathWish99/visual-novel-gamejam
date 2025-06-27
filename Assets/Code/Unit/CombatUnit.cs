@@ -29,6 +29,8 @@ public class CombatUnit : MonoBehaviour
     private Color CurrentColour { get; set; }
     private Animator Animator { get; set; }
 
+    private CharacterHighlight characterHighlight;
+
     // === Unity Methods ===
     private void Awake()
     {
@@ -40,8 +42,9 @@ public class CombatUnit : MonoBehaviour
         OriginalColour = Image.color;
 
         Animator = gameObject.GetComponent<Animator>();
+        Agent = GetComponent<IAgent>();
 
-        if (!Stats.IsPlayer) Agent = GetComponent<AIAgent>();
+        characterHighlight = GetComponent<CharacterHighlight>();
     }
 
     // === Public Event Handlers ===
@@ -55,10 +58,11 @@ public class CombatUnit : MonoBehaviour
                 if (IsEnemy)
                     combatManager.TakePlayerAction(this);
                 break;
-
             case InputMode.SKILL:
-                if (CanAttack(combatManager.SelectedSkill))
+                if (CanExecuteSkill(combatManager.SelectedSkill))
                     combatManager.ExecuteSkill(this);
+                break;
+            default:
                 break;
         }
     }
@@ -66,11 +70,12 @@ public class CombatUnit : MonoBehaviour
     public void OnStartTurn()
     {
         ReduceActiveEffectRemainingDurations();
+        characterHighlight.SetActiveTurn(true);
     }
 
     public void OnEndTurn()
     {
-        Image.color = OriginalColour;
+        characterHighlight.SetActiveTurn(false);
     }
 
     public void OnAttack()
@@ -134,7 +139,7 @@ public class CombatUnit : MonoBehaviour
         ActiveEffects.RemoveAll(effect => effect.ShouldRemove());
     }
 
-    private bool CanAttack(Skill selectedSkill)
+    private bool CanExecuteSkill(Skill selectedSkill)
     {
         return (IsEnemy && selectedSkill.CanTargetEnemy) ||
                (Stats.IsCompanion && selectedSkill.CanTargetCompanion);

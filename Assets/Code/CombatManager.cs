@@ -69,9 +69,20 @@ public class CombatManager : MonoBehaviour
         SelectedSkill = skill;
     }
 
-    public void ExecuteSkill(CombatUnit target)
+    public List<CombatUnit> GetTargets(CombatUnit targeter)
+    {
+        return PlayerUnits.Contains(targeter) ? EnemyUnits : PlayerUnits;
+    }
+
+    // --------------------- Player Actions --------------------
+    public void OnPlayerTurn()
     {
         CurrentInputMode = InputMode.ATTACK;
+    }
+
+    public void ExecuteSkill(CombatUnit target)
+    {
+        CurrentInputMode = InputMode.NONE;
 
         SkillExecutor.Execute(SelectedSkill, PlayerUnit, target);
         OnSkillUsed?.Invoke();
@@ -80,17 +91,13 @@ public class CombatManager : MonoBehaviour
 
     public void TakePlayerAction(CombatUnit target)
     {
+        CurrentInputMode = InputMode.NONE;
+
         PlayerUnit.OnAttack();
-
         int damage = PlayerUnit.Attack;
-
         target.TakeDamage(damage);
+        
         Invoke(nameof(EndCurrentTurn), 1.0f);
-    }
-
-    public List<CombatUnit> GetTargets(CombatUnit targeter)
-    {
-        return PlayerUnits.Contains(targeter) ? EnemyUnits : PlayerUnits;
     }
 
     // --------------------- Setup Methods ---------------------
@@ -165,8 +172,6 @@ public class CombatManager : MonoBehaviour
         OnTurnChanged?.Invoke(currentUnit);
         UpdateIconStates();
         HighlightCurrentUnitIcon(currentUnit);
-
-        if (currentUnit.Stats.IsPlayer) return;
     }
 
 
