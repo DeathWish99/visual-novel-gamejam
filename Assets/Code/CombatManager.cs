@@ -31,6 +31,10 @@ public class CombatManager : MonoBehaviour
     public Skill SelectedSkill { get; private set; }
     private List<SkillButton> SkillButtons => skillButtons;
 
+    // --------------------- Public Fields ---------------------
+    public static event System.Action<CombatUnit> OnTurnChanged;
+    public static event System.Action OnSkillUsed;
+
     // --------------------- Private Fields ---------------------
     private Dictionary<EnemyType, GameObject> PrefabMap { get; set; }
     private Dictionary<CombatUnit, GameObject> UnitIcons { get; set; }
@@ -71,7 +75,6 @@ public class CombatManager : MonoBehaviour
     // --------------------- Public Methods ---------------------
     public void OnSkillButtonClick(Skill skill)
     {
-        DisableSkillButtons();
         CurrentInputMode = InputMode.SKILL;
         SelectedSkill = skill;
     }
@@ -79,15 +82,18 @@ public class CombatManager : MonoBehaviour
     public void ExecuteSkill(CombatUnit target)
     {
         CurrentInputMode = InputMode.ATTACK;
+
         SkillExecutor.Execute(SelectedSkill, PlayerUnit, target);
-        SkillButtonTimer = 2;
+        OnSkillUsed?.Invoke();
         Invoke(nameof(StartNextTurn), 1.0f);
     }
 
     public void TakePlayerAction(CombatUnit target)
     {
         PlayerUnit.OnAttack();
+
         int damage = PlayerUnit.Attack;
+
         target.TakeDamage(damage);
         Invoke(nameof(StartNextTurn), 1.0f);
     }
@@ -97,13 +103,23 @@ public class CombatManager : MonoBehaviour
         // Placeholder
     }
 
+    public List<CombatUnit> GetTargets(CombatUnit targeter)
+    {
+        return PlayerUnits.Contains(targeter) ? EnemyUnits : PlayerUnits;
+    }
+
     // --------------------- Setup Methods ---------------------
     private void SetUp()
     {
         UnitIcons = new();
         IconDisplayOrder = new();
+        Units = new List<CombatUnit>();
+        PlayerUnits = new List<CombatUnit>();
+        EnemyUnits = new List<CombatUnit>();
         SkillExecutor = GetComponent<SkillExecutor>();
+
         SetUpPrefabMap();
+
         TurnQueue = new Queue<CombatUnit>();
     }
 
@@ -120,52 +136,9 @@ public class CombatManager : MonoBehaviour
 
     private void SetUpUnits()
     {
-        CombatSceneParameters parameters = GameManager.Instance.CurrentParameters;
-
-        Units = new List<CombatUnit>();
-        PlayerUnits = new List<CombatUnit>();
-        EnemyUnits = new List<CombatUnit>();
-
-        PlayerUnit = Instantiate(playerPrefab, playerPosition).GetComponent<CombatUnit>();
-        Units.Add(PlayerUnit);
-        PlayerUnits.Add(PlayerUnit);
-
-        if (parameters.HasCompanion)
-        {
-            CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
-            Units.Add(companionUnit);
-            PlayerUnits.Add(companionUnit);
-            IconDisplayOrder.Add(companionUnit);
-        }
-
-        IconDisplayOrder.Add(PlayerUnit);
-
-        int enemyPositionCounter = 0;
-        foreach (var enemyType in parameters.Enemies)
-        {
-            if (PrefabMap.TryGetValue(enemyType, out GameObject prefab))
-            {
-                CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter]).GetComponent<CombatUnit>();
-                Units.Add(enemyUnit);
-                EnemyUnits.Add(enemyUnit);
-                IconDisplayOrder.Add(enemyUnit);
-                enemyPositionCounter++;
-            }
-        }
-
-        foreach (CombatUnit unit in IconDisplayOrder)
-        {
-            GameObject icon = Instantiate(turnOrderIconPrefab, turnOrderBar);
-
-            Image iconImage = icon.GetComponent<Image>();
-
-            if (iconImage != null && unit.Stats.Icon)
-            {
-                iconImage.sprite = unit.Stats.Icon.sprite;
-            }
-
-            UnitIcons.Add(unit, icon);
-        }
+        SpawnPlayerUnits();
+        SpawnEnemies();
+        CreateTurnOrderIcons();
     }
 
     private void SetUpTurnOrder()
@@ -188,6 +161,48 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    private void SpawnPlayerUnits()
+    {
+        bool hasCompanion = GameManager.Instance.CurrentParameters.HasCompanion;
+
+        // Spawn player
+        PlayerUnit = Instantiate(playerPrefab, playerPosition).GetComponent<CombatUnit>();
+
+        Units.Add(PlayerUnit);
+        PlayerUnits.Add(PlayerUnit);
+
+        // Spawn companion
+        if (hasCompanion)
+        {
+            CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
+
+            Units.Add(companionUnit);
+            PlayerUnits.Add(companionUnit);
+            IconDisplayOrder.Add(companionUnit);
+        }
+
+        IconDisplayOrder.Add(PlayerUnit);
+    }
+
+    private void SpawnEnemies()
+    {
+        List<EnemyType> enemies = GameManager.Instance.CurrentParameters.Enemies;
+
+        int enemyPositionCounter = 0;
+
+        foreach (var enemyType in enemies)
+        {
+            if (PrefabMap.TryGetValue(enemyType, out GameObject prefab))
+            {
+                CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter++]).GetComponent<CombatUnit>();
+
+                Units.Add(enemyUnit);
+                EnemyUnits.Add(enemyUnit);
+                IconDisplayOrder.Add(enemyUnit);
+            }
+        }
+    }
+
     // --------------------- Turn Logic ---------------------
     private void StartNextTurn()
     {
@@ -206,7 +221,8 @@ public class CombatManager : MonoBehaviour
         }
 
         CombatUnit currentUnit = TurnQueue.Dequeue();
-        Debug.Log($"Current Turn: {currentUnit.Stats.UnitName}");
+
+        OnTurnChanged?.Invoke(currentUnit);
 
         if (currentUnit.IsDead)
         {
@@ -219,54 +235,10 @@ public class CombatManager : MonoBehaviour
         UpdateIconStates();
         HighlightCurrentUnitIcon(currentUnit);
 
+        if (currentUnit.Stats.IsPlayer) return;
+
         currentUnit.OnStartTurn();
-
-        if (currentUnit.Stats.IsPlayer)
-        {
-            if (SkillButtonTimer > 0)
-                SkillButtonTimer--;
-
-            if (SkillButtonTimer <= 0)
-                EnableSkillButtons();
-
-            return;
-        }
-
-        DisableSkillButtons();
-        StartCoroutine(InvokeAIAction(currentUnit, 1.0f));
-    }
-
-    private IEnumerator InvokeAIAction(CombatUnit currentUnit, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        TakeAction(currentUnit);
-    }
-
-    private void TakeAction(CombatUnit currentUnit)
-    {
-        CombatUnit target = PickTarget(currentUnit);
-
-        if (target == null)
-        {
-            StartNextTurn();
-            return;
-        }
-
-        currentUnit.OnAttack();
-        target.TakeDamage(currentUnit.Attack);
-        Invoke(nameof(StartNextTurn), 1.0f);
-    }
-
-    private CombatUnit PickTarget(CombatUnit currentUnit)
-    {
-        List<CombatUnit> targets = PlayerUnits.Contains(currentUnit) ? EnemyUnits : PlayerUnits;
-
-        foreach (var target in targets)
-        {
-            if (!target.IsDead) return target;
-        }
-
-        return null;
+        StartCoroutine(currentUnit.Agent.TakeTurn(currentUnit, StartNextTurn));
     }
 
     private bool HasBattleEnded()
@@ -296,19 +268,20 @@ public class CombatManager : MonoBehaviour
     }
 
     // --------------------- UI Helpers ---------------------
-    private void DisableSkillButtons()
+    private void CreateTurnOrderIcons()
     {
-        foreach (var button in SkillButtons)
+        foreach (CombatUnit unit in IconDisplayOrder)
         {
-            button.Disable();
-        }
-    }
+            GameObject icon = Instantiate(turnOrderIconPrefab, turnOrderBar);
 
-    private void EnableSkillButtons()
-    {
-        foreach (var button in SkillButtons)
-        {
-            button.Enable();
+            Image iconImage = icon.GetComponent<Image>();
+
+            if (iconImage != null && unit.Stats.Icon)
+            {
+                iconImage.sprite = unit.Stats.Icon.sprite;
+            }
+
+            UnitIcons.Add(unit, icon);
         }
     }
 

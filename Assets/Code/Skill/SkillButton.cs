@@ -9,7 +9,7 @@ public class SkillButton : MonoBehaviour
     private Image IconImage { get; set; }
     private Button Button { get; set; }
 
-    private void Start()
+    private void Awake()
     {
         IconImage = gameObject.GetComponent<Image>();
         Button = gameObject.GetComponent<Button>();

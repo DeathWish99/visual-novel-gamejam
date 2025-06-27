@@ -6,31 +6,45 @@ using UnityEngine.UI;
 
 public class CombatUnit : MonoBehaviour
 {
+    // === Constants ===
+    private const string ATTACK_TRIGGER = "Attack";
+
+    // === Serialized Fields ===
     [SerializeField] private CombatUnitStats stats;
 
+    // === Public Properties ===
     public CombatUnitStats Stats => stats;
+    public IAgent Agent { get; private set; }
     public bool IsDead => CurrentHP <= 0;
     public int Attack => Stats.Attack + AttackBuff;
 
+    // === Private Fields ===
     private int CurrentHP { get; set; }
-    private bool IsEnemy => !Stats.IsPlayer && !Stats.IsCompanion;
-    private List<ActiveEffect> ActiveEffects { get; set; }
     private int AttackBuff { get; set; }
+    private List<ActiveEffect> ActiveEffects { get; set; }
+    private bool IsEnemy => !Stats.IsPlayer && !Stats.IsCompanion;
+
     private Image Image { get; set; }
     private Color OriginalColour { get; set; }
     private Color CurrentColour { get; set; }
     private Animator Animator { get; set; }
-    private const string ATTACK_TRIGGER = "Attack";
 
+    // === Unity Methods ===
     private void Awake()
     {
         CurrentHP = Stats.MaxHP;
+        AttackBuff = 0;
         ActiveEffects = new List<ActiveEffect>();
+
         Image = gameObject.GetComponent<Image>();
         OriginalColour = Image.color;
+
         Animator = gameObject.GetComponent<Animator>();
+
+        if (!Stats.IsPlayer) Agent = GetComponent<AIAgent>();
     }
 
+    // === Public Event Handlers ===
     public void OnClick()
     {
         CombatManager combatManager = CombatManager.Instance;
@@ -38,14 +52,13 @@ public class CombatUnit : MonoBehaviour
         switch (combatManager.CurrentInputMode)
         {
             case InputMode.ATTACK:
-                if (IsEnemy) combatManager.TakePlayerAction(this);
+                if (IsEnemy)
+                    combatManager.TakePlayerAction(this);
                 break;
+
             case InputMode.SKILL:
                 if (CanAttack(combatManager.SelectedSkill))
-                {
                     combatManager.ExecuteSkill(this);
-                }
-
                 break;
         }
     }
@@ -74,9 +87,7 @@ public class CombatUnit : MonoBehaviour
         CurrentHP = Mathf.Max(CurrentHP, 0);
 
         if (IsDead)
-        {
             gameObject.SetActive(false);
-        }
 
         StartCoroutine(FlashColour(Color.red));
     }
@@ -96,6 +107,7 @@ public class CombatUnit : MonoBehaviour
         ActiveEffects.Add(new ActiveEffect(stat, amount, duration));
     }
 
+    // === Private Methods ===
     private void ReduceActiveEffectRemainingDurations()
     {
         foreach (var activeEffect in ActiveEffects)
@@ -107,7 +119,7 @@ public class CombatUnit : MonoBehaviour
                 switch (activeEffect.Stat)
                 {
                     case StatType.HP:
-                        CurrentHP += -activeEffect.Amount;
+                        CurrentHP -= activeEffect.Amount;
                         break;
                     case StatType.ATK:
                         AttackBuff = 0;
@@ -121,7 +133,8 @@ public class CombatUnit : MonoBehaviour
 
     private bool CanAttack(Skill selectedSkill)
     {
-        return (IsEnemy && selectedSkill.CanTargetEnemy) || (Stats.IsCompanion && selectedSkill.CanTargetCompanion);
+        return (IsEnemy && selectedSkill.CanTargetEnemy) ||
+               (Stats.IsCompanion && selectedSkill.CanTargetCompanion);
     }
 
     private IEnumerator FlashColour(Color colour)
