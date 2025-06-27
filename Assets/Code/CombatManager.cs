@@ -226,6 +226,8 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
+        currentUnit.OnAttack();
+
         target.TakeDamage(currentUnit.Attack);
 
         Invoke(nameof(StartNextTurn), 1.0f);
