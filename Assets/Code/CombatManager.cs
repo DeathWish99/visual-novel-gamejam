@@ -6,19 +6,27 @@ using VisualNovel.GameJam.Manager;
 
 public class CombatManager : MonoBehaviour
 {
+    // --------------------- Serialized Fields ---------------------
+    [Header("Prefabs")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject companionPrefab;
     [SerializeField] private List<EnemyPrefabPair> enemyPrefabs;
+
+    [Header("Positions")]
     [SerializeField] private RectTransform playerPosition;
     [SerializeField] private RectTransform companionPosition;
     [SerializeField] private List<RectTransform> enemyPositions;
+
+    [Header("UI")]
     [SerializeField] private List<SkillButton> skillButtons;
 
-    private List<SkillButton> SkillButtons => skillButtons;
-
+    // --------------------- Properties ---------------------
     public static CombatManager Instance { get; private set; }
     public InputMode CurrentInputMode { get; private set; }
     public Skill SelectedSkill { get; private set; }
+    private List<SkillButton> SkillButtons => skillButtons;
+
+    // --------------------- Private Fields ---------------------
     private Dictionary<EnemyType, GameObject> PrefabMap { get; set; }
     private Queue<CombatUnit> TurnQueue { get; set; }
     private List<CombatUnit> Units { get; set; }
@@ -28,6 +36,7 @@ public class CombatManager : MonoBehaviour
     private SkillExecutor SkillExecutor { get; set; }
     private int SkillButtonTimer { get; set; }
 
+    // --------------------- Unity Lifecycle ---------------------
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,6 +61,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    // --------------------- Public Methods ---------------------
     public void OnSkillButtonClick(Skill skill)
     {
         DisableSkillButtons();
@@ -70,25 +80,21 @@ public class CombatManager : MonoBehaviour
     public void TakePlayerAction(CombatUnit target)
     {
         PlayerUnit.OnAttack();
-
         int damage = PlayerUnit.Attack;
-
         target.TakeDamage(damage);
-
         Invoke(nameof(StartNextTurn), 1.0f);
     }
 
     public void OnPlayerDied()
     {
-
+        // Placeholder
     }
 
+    // --------------------- Setup Methods ---------------------
     private void SetUp()
     {
-        SkillExecutor = gameObject.GetComponent<SkillExecutor>();
-
+        SkillExecutor = GetComponent<SkillExecutor>();
         SetUpPrefabMap();
-
         TurnQueue = new Queue<CombatUnit>();
     }
 
@@ -98,7 +104,40 @@ public class CombatManager : MonoBehaviour
 
         foreach (var pair in enemyPrefabs)
         {
-            if (!PrefabMap.ContainsKey(pair.type)) PrefabMap.Add(pair.type, pair.prefab);
+            if (!PrefabMap.ContainsKey(pair.type))
+                PrefabMap.Add(pair.type, pair.prefab);
+        }
+    }
+
+    private void SetUpUnits()
+    {
+        CombatSceneParameters parameters = GameManager.Instance.CurrentParameters;
+
+        Units = new List<CombatUnit>();
+        PlayerUnits = new List<CombatUnit>();
+        EnemyUnits = new List<CombatUnit>();
+
+        PlayerUnit = Instantiate(playerPrefab, playerPosition).GetComponent<CombatUnit>();
+        Units.Add(PlayerUnit);
+        PlayerUnits.Add(PlayerUnit);
+
+        if (parameters.HasCompanion)
+        {
+            CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
+            Units.Add(companionUnit);
+            PlayerUnits.Add(companionUnit);
+        }
+
+        int enemyPositionCounter = 0;
+        foreach (var enemyType in parameters.Enemies)
+        {
+            if (PrefabMap.TryGetValue(enemyType, out GameObject prefab))
+            {
+                CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter]).GetComponent<CombatUnit>();
+                Units.Add(enemyUnit);
+                EnemyUnits.Add(enemyUnit);
+                enemyPositionCounter++;
+            }
         }
     }
 
@@ -117,52 +156,15 @@ public class CombatManager : MonoBehaviour
 
         foreach (var unit in Units)
         {
-            if (!unit.IsDead) TurnQueue.Enqueue(unit);
+            if (!unit.IsDead)
+                TurnQueue.Enqueue(unit);
         }
     }
 
-    private void SetUpUnits()
-    {
-        CombatSceneParameters parameters = GameManager.Instance.CurrentParameters;
-        Units = new List<CombatUnit>();
-        EnemyUnits = new List<CombatUnit>();
-        PlayerUnits = new List<CombatUnit>();
-        PlayerUnit = Instantiate(playerPrefab, playerPosition).GetComponent<CombatUnit>();
-
-        Units.Add(PlayerUnit);
-        PlayerUnits.Add(PlayerUnit);
-
-        if (parameters.HasCompanion)
-        {
-            CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
-
-            Units.Add(companionUnit);
-            PlayerUnits.Add(companionUnit);
-        }
-
-        int enemyPositionCounter = 0;
-
-        foreach (var enemyType in parameters.Enemies)
-        {
-            if (PrefabMap.TryGetValue(enemyType, out GameObject prefab))
-            {
-                CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter]).GetComponent<CombatUnit>();
-
-                Units.Add(enemyUnit);
-                EnemyUnits.Add(enemyUnit);
-
-                enemyPositionCounter++;
-            }
-        }
-    }
-
+    // --------------------- Turn Logic ---------------------
     private void StartNextTurn()
     {
-        if (HasBattleEnded())
-        {
-            // Invoke(nameof(ReloadScene), 1.0f);
-            return;
-        }
+        if (HasBattleEnded()) return;
 
         if (TurnQueue.Count == 0)
         {
@@ -191,30 +193,23 @@ public class CombatManager : MonoBehaviour
         if (currentUnit.Stats.IsPlayer)
         {
             if (SkillButtonTimer > 0)
-            {
                 SkillButtonTimer--;
-            }
 
             if (SkillButtonTimer <= 0)
-            {
                 EnableSkillButtons();
-            }
 
             return;
         }
 
         DisableSkillButtons();
-
         StartCoroutine(InvokeAIAction(currentUnit, 1.0f));
     }
-
 
     private IEnumerator InvokeAIAction(CombatUnit currentUnit, float delay)
     {
         yield return new WaitForSeconds(delay);
         TakeAction(currentUnit);
     }
-
 
     private void TakeAction(CombatUnit currentUnit)
     {
@@ -227,9 +222,7 @@ public class CombatManager : MonoBehaviour
         }
 
         currentUnit.OnAttack();
-
         target.TakeDamage(currentUnit.Attack);
-
         Invoke(nameof(StartNextTurn), 1.0f);
     }
 
@@ -271,6 +264,7 @@ public class CombatManager : MonoBehaviour
         SceneManager.LoadScene("CombatScene");
     }
 
+    // --------------------- UI Helpers ---------------------
     private void DisableSkillButtons()
     {
         foreach (var button in SkillButtons)
