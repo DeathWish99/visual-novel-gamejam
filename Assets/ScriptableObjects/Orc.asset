@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98bd2fff70cc40649ac41d9ae82c6875, type: 3}
-  m_Name: Goblin
+  m_Name: Orc
   m_EditorClassIdentifier: 
   unitName: Goblin
   icon: {fileID: 0}
   isPlayer: 0
   isCompanion: 0
-  maxHP: 10
-  attack: 3
-  defence: 1
-  speed: 7
+  maxHP: 50
+  attack: 15
+  defence: 4
+  speed: 5
