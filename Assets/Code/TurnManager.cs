@@ -1,35 +1,28 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VisualNovel.GameJam.Manager;
 
 public class TurnManager : MonoBehaviour
 {
     public event Action<CombatUnit> OnTurnStarted;
-    public event Action<CombatUnit> OnTurnEnded;
-    public event Action OnRoundEnded;
 
-    private Queue<CombatUnit> turnQueue = new();
-    private List<CombatUnit> allUnits = new();
+    private Queue<CombatUnit> turnQueue;
+    private List<CombatUnit> allUnits;
 
     public void Initialise(List<CombatUnit> units)
     {
-        allUnits = new List<CombatUnit>(units);
-        BuildTurnQueue();
+        allUnits = units;
+        turnQueue = new Queue<CombatUnit>();
+        PopulateTurnQueue();
     }
 
     public void StartNextTurn()
     {
-        if (IsBattleOver())
-            return;
-
         if (turnQueue.Count == 0)
         {
-            OnRoundEnded?.Invoke();
-            BuildTurnQueue();
+            PopulateTurnQueue();
         }
-
-        foreach (var unit in allUnits)
-            unit.OnEndTurn();
 
         CombatUnit currentUnit = turnQueue.Dequeue();
 
@@ -40,20 +33,27 @@ public class TurnManager : MonoBehaviour
         }
 
         OnTurnStarted?.Invoke(currentUnit);
-        currentUnit.OnStartTurn();
+
+        if (!currentUnit.Stats.IsPlayer)
+        {
+            currentUnit.OnStartTurn();
+            currentUnit.StartCoroutine(currentUnit.Agent.TakeTurn(currentUnit, EndTurn));
+        }
     }
 
-    public void EndCurrentTurn(CombatUnit unit)
+    public void EndTurn()
     {
-        OnTurnEnded?.Invoke(unit);
+        foreach (var unit in allUnits)
+        {
+            unit.OnEndTurn();
+        }
+
         StartNextTurn();
     }
 
-    private void BuildTurnQueue()
+    private void PopulateTurnQueue()
     {
-        List<CombatUnit> aliveUnits = allUnits.FindAll(u => !u.IsDead);
-
-        aliveUnits.Sort((a, b) =>
+        allUnits.Sort((a, b) =>
         {
             if (a.Stats.Speed == b.Stats.Speed)
             {
@@ -64,14 +64,10 @@ public class TurnManager : MonoBehaviour
             return b.Stats.Speed.CompareTo(a.Stats.Speed);
         });
 
-        turnQueue = new Queue<CombatUnit>(aliveUnits);
-    }
-
-    private bool IsBattleOver()
-    {
-        bool allEnemiesDead = allUnits.TrueForAll(u => u.Stats.IsPlayer || u.IsDead);
-        bool allPlayersDead = allUnits.TrueForAll(u => !u.Stats.IsPlayer || u.IsDead);
-
-        return allEnemiesDead || allPlayersDead;
+        foreach (var unit in allUnits)
+        {
+            if (!unit.IsDead)
+                turnQueue.Enqueue(unit);
+        }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4692402080752821601}
   - component: {fileID: 7831769733373495920}
   - component: {fileID: 6357147953473114008}
+  - component: {fileID: 6155514182402727254}
   m_Layer: 0
   m_Name: Combat Manager
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitSpawner: {fileID: 6357147953473114008}
+  turnManager: {fileID: 6155514182402727254}
   turnOrderBar: {fileID: 0}
   turnOrderIconPrefab: {fileID: 8664125236402416298, guid: a5fb571757173114c91ab53ed0127930, type: 3}
 --- !u!114 &4692402080752821601
@@ -99,3 +101,15 @@ MonoBehaviour:
   enemyPositions:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &6155514182402727254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85913842958256262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c098b49004158c46bd568547e95cf4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

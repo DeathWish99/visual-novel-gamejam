@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour
 {
     // --------------------- Serialized Fields ---------------------
     [SerializeField] private UnitSpawner unitSpawner;
+    [SerializeField] private TurnManager turnManager;
 
     [Header("Turn Order UI")]
     [SerializeField] private RectTransform turnOrderBar;
@@ -50,7 +51,7 @@ public class CombatManager : MonoBehaviour
         SetUp();
         SetUpUnits();
         SetUpTurnOrder();
-        StartNextTurn();
+        turnManager.StartNextTurn();
     }
 
     private void Update()
@@ -74,7 +75,7 @@ public class CombatManager : MonoBehaviour
 
         SkillExecutor.Execute(SelectedSkill, PlayerUnit, target);
         OnSkillUsed?.Invoke();
-        Invoke(nameof(StartNextTurn), 1.0f);
+        Invoke(nameof(EndCurrentTurn), 1.0f);
     }
 
     public void TakePlayerAction(CombatUnit target)
@@ -84,7 +85,7 @@ public class CombatManager : MonoBehaviour
         int damage = PlayerUnit.Attack;
 
         target.TakeDamage(damage);
-        Invoke(nameof(StartNextTurn), 1.0f);
+        Invoke(nameof(EndCurrentTurn), 1.0f);
     }
 
     public List<CombatUnit> GetTargets(CombatUnit targeter)
@@ -113,22 +114,8 @@ public class CombatManager : MonoBehaviour
 
     private void SetUpTurnOrder()
     {
-        Units.Sort((a, b) =>
-        {
-            if (a.Stats.Speed == b.Stats.Speed)
-            {
-                if (a.Stats.IsPlayer) return -1;
-                if (b.Stats.IsPlayer) return 1;
-                return 0;
-            }
-            return b.Stats.Speed.CompareTo(a.Stats.Speed);
-        });
-
-        foreach (var unit in Units)
-        {
-            if (!unit.IsDead)
-                TurnQueue.Enqueue(unit);
-        }
+        turnManager.Initialise(Units);
+        turnManager.OnTurnStarted += HandleTurnStarted;
     }
 
     private void SpawnPlayerUnits()
@@ -168,68 +155,20 @@ public class CombatManager : MonoBehaviour
     }
 
     // --------------------- Turn Logic ---------------------
-    private void StartNextTurn()
+    private void EndCurrentTurn()
     {
-        if (HasBattleEnded()) return;
+        turnManager.EndTurn();
+    }
 
-        if (TurnQueue.Count == 0)
-        {
-            SetUpTurnOrder();
-            StartNextTurn();
-            return;
-        }
-
-        foreach (var unit in Units)
-        {
-            unit.OnEndTurn();
-        }
-
-        CombatUnit currentUnit = TurnQueue.Dequeue();
-
+    private void HandleTurnStarted(CombatUnit currentUnit)
+    {
         OnTurnChanged?.Invoke(currentUnit);
-
-        if (currentUnit.IsDead)
-        {
-            Debug.Log($"{currentUnit.Stats.name} is dead. Going to next turn...");
-            UpdateIconStates();
-            StartNextTurn();
-            return;
-        }
-
         UpdateIconStates();
         HighlightCurrentUnitIcon(currentUnit);
 
         if (currentUnit.Stats.IsPlayer) return;
-
-        currentUnit.OnStartTurn();
-        StartCoroutine(currentUnit.Agent.TakeTurn(currentUnit, StartNextTurn));
     }
 
-    private bool HasBattleEnded()
-    {
-        bool isPlayerDead = PlayerUnit.IsDead;
-        bool areAllEnemiesDead = EnemyUnits.TrueForAll(unit => unit.IsDead);
-
-        if (isPlayerDead)
-        {
-            Debug.Log("You are dead.");
-            Invoke(nameof(ReloadScene), 3.0f);
-            return true;
-        }
-
-        if (areAllEnemiesDead)
-        {
-            Debug.Log("You won.");
-            return true;
-        }
-
-        return false;
-    }
-
-    private void ReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 
     // --------------------- UI Helpers ---------------------
     private void CreateTurnOrderIcons()
