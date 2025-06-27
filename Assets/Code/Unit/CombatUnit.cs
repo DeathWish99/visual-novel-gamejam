@@ -11,6 +11,7 @@ public class CombatUnit : MonoBehaviour
 
     // === Serialized Fields ===
     [SerializeField] private CombatUnitStats stats;
+    [SerializeField] private Image healthFill;
 
     // === Public Properties ===
     public CombatUnitStats Stats => stats;
@@ -91,6 +92,8 @@ public class CombatUnit : MonoBehaviour
         CurrentHP -= finalDamage;
         CurrentHP = Mathf.Max(CurrentHP, 0);
 
+        UpdateHealthBar();
+
         if (IsDead)
         {
             gameObject.SetActive(false);
@@ -111,6 +114,8 @@ public class CombatUnit : MonoBehaviour
                 AttackBuff = amount;
                 break;
         }
+
+        UpdateHealthBar();
 
         ActiveEffects.Add(new ActiveEffect(stat, amount, duration));
     }
@@ -160,4 +165,13 @@ public class CombatUnit : MonoBehaviour
 
         Image.color = OriginalColour;
     }
+
+    private void UpdateHealthBar()
+    {
+        if (healthFill != null)
+        {
+            healthFill.fillAmount = (float)CurrentHP / Stats.MaxHP;
+        }
+    }
+
 }
