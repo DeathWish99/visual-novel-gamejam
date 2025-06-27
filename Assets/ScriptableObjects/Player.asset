@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   unitName: Player
+  icon: {fileID: 0}
   isPlayer: 1
   isCompanion: 0
-  maxHP: 10
+  maxHP: 2
   attack: 1
   defence: 0
   speed: 3

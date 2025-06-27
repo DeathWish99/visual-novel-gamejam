@@ -5,6 +5,7 @@ using UnityEngine;
 public class CombatUIController : MonoBehaviour
 {
     [SerializeField] private List<SkillButton> skillButtons;
+    [SerializeField] private GameObject gameOverPanel;
 
     private int cooldownTimer = 0;
 
@@ -12,12 +13,14 @@ public class CombatUIController : MonoBehaviour
     {
         CombatManager.OnTurnChanged += HandleTurnChanged;
         CombatManager.OnSkillUsed += HandleSkillUsed;
+        CombatManager.OnPlayerDied += HandlePlayerDied;
     }
 
     private void OnDisable()
     {
         CombatManager.OnTurnChanged -= HandleTurnChanged;
         CombatManager.OnSkillUsed -= HandleSkillUsed;
+        CombatManager.OnPlayerDied -= HandlePlayerDied;
     }
 
     private void HandleTurnChanged(CombatUnit unit)
@@ -40,6 +43,12 @@ public class CombatUIController : MonoBehaviour
         cooldownTimer = 2;
 
         DisableButtons();
+    }
+
+    private void HandlePlayerDied()
+    {
+        gameOverPanel.SetActive(true);
+        CombatManager.Instance.ReloadScene();
     }
 
     private bool PlayerCanUseSkill()

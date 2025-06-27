@@ -23,6 +23,7 @@ public class CombatManager : MonoBehaviour
     // --------------------- Public Fields ---------------------
     public static event System.Action<CombatUnit> OnTurnChanged;
     public static event System.Action OnSkillUsed;
+    public static event System.Action OnPlayerDied;
 
     // --------------------- Private Fields ---------------------
     private Dictionary<CombatUnit, GameObject> UnitIcons { get; set; }
@@ -74,6 +75,16 @@ public class CombatManager : MonoBehaviour
         return PlayerUnits.Contains(targeter) ? EnemyUnits : PlayerUnits;
     }
 
+    public void HandlePlayerDied()
+    {
+        OnPlayerDied?.Invoke();
+    }
+
+    public void ReloadScene()
+    {
+        StartCoroutine(ReloadAfterDelay(2f));
+    }
+
     // --------------------- Player Actions --------------------
     public void OnPlayerTurn()
     {
@@ -96,7 +107,7 @@ public class CombatManager : MonoBehaviour
         PlayerUnit.OnAttack();
         int damage = PlayerUnit.Attack;
         target.TakeDamage(damage);
-        
+
         Invoke(nameof(EndCurrentTurn), 1.0f);
     }
 
@@ -231,10 +242,16 @@ public class CombatManager : MonoBehaviour
             if (canvasGroup != null)
             {
                 canvasGroup.alpha = unit.IsDead ? 0.3f : 1f;
-                icon.GetComponent<Image>().color = unit.IsDead 
+                icon.GetComponent<Image>().color = unit.IsDead
                     ? new Color(1f, 1f, 1f, 0.3f)
                     : Color.white;
             }
         }
+    }
+    
+    private IEnumerator ReloadAfterDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -96,6 +96,11 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         if (IsDead)
         {
+            if (Stats.IsPlayer)
+            {
+                CombatManager.Instance.HandlePlayerDied();
+            }
+
             gameObject.SetActive(false);
             return;
         }
