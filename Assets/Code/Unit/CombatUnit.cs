@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CombatUnit : MonoBehaviour
+public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // === Constants ===
     private const string ATTACK_TRIGGER = "Attack";
@@ -18,9 +18,9 @@ public class CombatUnit : MonoBehaviour
     public IAgent Agent { get; private set; }
     public bool IsDead => CurrentHP <= 0;
     public int Attack => Stats.Attack + AttackBuff;
+    public int CurrentHP { get; private set; }
 
     // === Private Fields ===
-    private int CurrentHP { get; set; }
     private int AttackBuff { get; set; }
     private List<ActiveEffect> ActiveEffects { get; set; }
     private bool IsEnemy => !Stats.IsPlayer && !Stats.IsCompanion;
@@ -118,6 +118,19 @@ public class CombatUnit : MonoBehaviour
         UpdateHealthBar();
 
         ActiveEffects.Add(new ActiveEffect(stat, amount, duration));
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!Stats.IsPlayer && !Stats.IsCompanion)
+        {
+            EnemyInfoUIManager.Instance.Show(this);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        EnemyInfoUIManager.Instance.Clear();
     }
 
     // === Private Methods ===

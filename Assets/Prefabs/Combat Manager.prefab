@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7831769733373495920}
   - component: {fileID: 6357147953473114008}
   - component: {fileID: 6155514182402727254}
+  - component: {fileID: 5269132196929659325}
+  - component: {fileID: 1838350797039616260}
   m_Layer: 0
   m_Name: Combat Manager
   m_TagString: Untagged
@@ -113,3 +115,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c098b49004158c46bd568547e95cf4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5269132196929659325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85913842958256262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ceacc06c7b5a654ab0f6654c0def184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillInfoUI: {fileID: 0}
+--- !u!114 &1838350797039616260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85913842958256262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c5b39588297a44298dbff897c99da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyInfoUI: {fileID: 0}
