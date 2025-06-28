@@ -31,7 +31,6 @@ GameObject:
   - component: {fileID: 3763851239017537555}
   - component: {fileID: 2613592354539563310}
   - component: {fileID: 4883928525741776397}
-  - component: {fileID: 4266235565140832373}
   - component: {fileID: 7421649764726671815}
   - component: {fileID: 3421056530230091147}
   - component: {fileID: 8751585151760299403}
@@ -122,11 +121,6 @@ GameObject:
   - component: {fileID: 3475900579642241702}
   - component: {fileID: 3290616635035662255}
   - component: {fileID: 8081762060906844199}
-  - component: {fileID: 483063864312793264}
-  - component: {fileID: 4996268727157308042}
-  - component: {fileID: 4254104082844837446}
-  - component: {fileID: 3485610664206582277}
-  - component: {fileID: 1066870790125890973}
   - component: {fileID: 659488954307926654}
   - component: {fileID: 5343838826353369220}
   - component: {fileID: 4282372216480380270}
@@ -139,10 +133,6 @@ GameObject:
   - component: {fileID: 4857311152666555306}
   - component: {fileID: 3939467420059160012}
   - component: {fileID: 1594559760223458346}
-  - component: {fileID: 4172203017007774164}
-  - component: {fileID: 8731814168708991154}
-  - component: {fileID: 2761097468304834435}
-  - component: {fileID: 2929163579022929343}
   - component: {fileID: 3647215154369728829}
   - component: {fileID: 2612137217398456960}
   - component: {fileID: 9027755114693576991}
@@ -175,6 +165,16 @@ GameObject:
   - component: {fileID: 1830010365129643216}
   - component: {fileID: 2411036315787727504}
   - component: {fileID: 8272306094167300941}
+  - component: {fileID: 6706933797879351032}
+  - component: {fileID: 5179531071743148950}
+  - component: {fileID: 76287161124736731}
+  - component: {fileID: 2255873908387601618}
+  - component: {fileID: 7945407198648074053}
+  - component: {fileID: 5429078861448726145}
+  - component: {fileID: 3640688367363638789}
+  - component: {fileID: 2165071975051441139}
+  - component: {fileID: 146464971974478903}
+  - component: {fileID: 8309865964490895651}
   m_Layer: 0
   m_Name: Prolog-Flow
   m_TagString: Untagged
@@ -222,14 +222,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 8751585151760299403}
-  selectedCommands:
-  - {fileID: 2266104125913855964}
-  - {fileID: 9098856908581219405}
-  - {fileID: 895149301361968900}
-  - {fileID: 4825611341076003338}
-  - {fileID: 677855395668571522}
-  - {fileID: 4893634489322506071}
+  - {fileID: 4905625014885669436}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -264,7 +258,7 @@ MonoBehaviour:
   itemId: 0
   blockName: Prologue
   description: 
-  eventHandler: {fileID: 4266235565140832373}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 5007441169263819767}
   - {fileID: 5433432162109285296}
@@ -828,21 +822,6 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
---- !u!114 &4266235565140832373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1563919676008954509}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
 --- !u!114 &7421649764726671815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,7 +1124,7 @@ MonoBehaviour:
   indentLevel: 0
   images:
   - {fileID: 0}
-  sprite: {fileID: 518904343662534100, guid: ed85299f711750048aec11f533e9c81e, type: 3}
+  sprite: {fileID: -1090135333950810473, guid: a242e95386ec51e43afc72264ecc2f60, type: 3}
 --- !u!114 &603195678619961178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,9 +2000,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 63
   indentLevel: 0
-  storyText: The wormhole pulsate, like a heartbeat as it does, the sky grows darker,
-    defying the law of physics as the warmth sunlight no longer exists, replaces
-    by a cold chill.
+  storyText: The wormhole pulsates like a heartbeat. As it does, the sky grows darker
+    and the air grows colder as the warm sunlight disappears.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2050,8 +2028,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 64
   indentLevel: 0
-  storyText: Within it's center a dark abyss, a void so deep that it seems to swallow
-    all lights.
+  storyText: In its center, a dark abyss. A void so deep that it seems to swallow
+    all light.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2078,9 +2056,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 65
   indentLevel: 0
-  storyText: There, suspending like a cosmic eye, is a wormhole - pulsating gateway
-    framed by a vivid electric blue edge that pulses like an electricity, intense
-    and rapid.
+  storyText: There, suspended like a cosmic eye, is a wormhole - a pulsating gateway
+    framed by a vivid electric blue edge that pulses like electricity, intense and
+    rapid.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2107,8 +2085,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 66
   indentLevel: 0
-  storyText: It's like something out of a novel, above the sky it ripples as if reality
-    itself is bending.
+  storyText: Like something from a novel, the sky above ripples as if reality itself
+    is bending.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2135,8 +2113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 67
   indentLevel: 0
-  storyText: As they both looked up in shocked from the loud sound, they gasp once
-    they have their eyes on the skies.
+  storyText: As they both look up in shock from the loud sound, they gasp once they
+    have their eyes on the skies.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2500,8 +2478,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 80
   indentLevel: 0
-  storyText: As it pulses after some time, as if answering to it's call, numerous
-    other thunderous clap waves run through the city as more of it's kind appear.
+  storyText: After some time, as if answering to a call, numerous thunderous claps
+    reverberate throughout the city as more wormholes appear.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2528,9 +2506,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 81
   indentLevel: 0
-  storyText: '''What''s going on?'' is the very thing that are running on everyone''s
-    head at the moment with some people start''s pointing their phone and camera
-    towards the sky.'
+  storyText: '''What''s going on?'' is the very thing that is running through everyone''s
+    minds at that moment as some people point their phones and cameras towards the
+    sky.'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2557,9 +2535,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 82
   indentLevel: 0
-  storyText: No one ever saw something like this, the cheers transform into murmurs
-    of the people that are confused on the occurrence that happen in front of their
-    very eyes.
+  storyText: No one's ever seen something like this. The cheers transform into murmuring.
+    The people are confused about what is happening right in front of their eyes
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -3080,9 +3057,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 103
   indentLevel: 0
-  storyText: Only to be jumped by a few other of the creature. Those man tries to
-    throw them off their body but those creatures number prove to be a problem. After
-    a few seconds of struggle their scream
+  storyText: Those men try to throw them off their bodies but those creatures' numbers
+    prove to be a problem. After a few seconds of struggle, they scream.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -3109,8 +3085,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 104
   indentLevel: 0
-  storyText: The silence broken, some of the courageous man tries to grapple the
-    child-like creature.
+  storyText: The silence broken, some of the courageous men try to grapple the child-like
+    creature, only to be attacked by a few more.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -3177,7 +3153,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -14
-    y: 213
+    y: 212
     width: 125.16
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -3196,11 +3172,16 @@ MonoBehaviour:
   - {fileID: 9126413613379799963}
   - {fileID: 4282372216480380270}
   - {fileID: 356467667044225774}
-  - {fileID: 483063864312793264}
-  - {fileID: 4996268727157308042}
-  - {fileID: 4254104082844837446}
-  - {fileID: 3485610664206582277}
-  - {fileID: 1066870790125890973}
+  - {fileID: 6706933797879351032}
+  - {fileID: 5179531071743148950}
+  - {fileID: 76287161124736731}
+  - {fileID: 2255873908387601618}
+  - {fileID: 7945407198648074053}
+  - {fileID: 5429078861448726145}
+  - {fileID: 3640688367363638789}
+  - {fileID: 2165071975051441139}
+  - {fileID: 146464971974478903}
+  - {fileID: 8309865964490895651}
   - {fileID: 659488954307926654}
   - {fileID: 5343838826353369220}
   - {fileID: 1722295945625861982}
@@ -3213,10 +3194,6 @@ MonoBehaviour:
   - {fileID: 424605604559333707}
   - {fileID: 4105386283260259093}
   - {fileID: 1594559760223458346}
-  - {fileID: 4172203017007774164}
-  - {fileID: 8731814168708991154}
-  - {fileID: 2761097468304834435}
-  - {fileID: 2929163579022929343}
   - {fileID: 1830010365129643216}
   - {fileID: 3647215154369728829}
   - {fileID: 5389682669063857482}
@@ -3429,119 +3406,6 @@ MonoBehaviour:
   move: 0
   shiftIntoPlace: 0
   waitUntilFinished: 0
---- !u!114 &483063864312793264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 116
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 1.5
-  durationOLD: 0
---- !u!114 &4996268727157308042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 117
-  indentLevel: 0
-  targetObjects:
-  - {fileID: 0}
-  tweenType: 26
-  waitUntilFinished:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  fadeMode: 0
-  targetColor:
-    colorRef: {fileID: 0}
-    colorVal: {r: 1, g: 1, b: 1, a: 1}
-  targetAlpha:
-    floatRef: {fileID: 0}
-    floatVal: 0
---- !u!114 &4254104082844837446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e4c082f762243f6943909a4272096d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 118
-  indentLevel: 0
-  images:
-  - {fileID: 0}
-  sprite: {fileID: -7461149993471325691, guid: 2f30828aa97e21440bca78249047876b, type: 3}
---- !u!114 &3485610664206582277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 120
-  indentLevel: 0
-  targetObjects:
-  - {fileID: 0}
-  tweenType: 26
-  waitUntilFinished:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  fadeMode: 0
-  targetColor:
-    colorRef: {fileID: 0}
-    colorVal: {r: 1, g: 1, b: 1, a: 1}
-  targetAlpha:
-    floatRef: {fileID: 0}
-    floatVal: 1
---- !u!114 &1066870790125890973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 121
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 1.5
-  durationOLD: 0
 --- !u!114 &659488954307926654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3556,8 +3420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 122
   indentLevel: 0
-  storyText: As the two tries to run away, they notice that anywhere they tried to
-    go there seems to be more alien creatures.
+  storyText: As the two try to run away, they notice that wherever they try to go
+    there seems to be more alien creatures.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -3584,8 +3448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 123
   indentLevel: 0
-  storyText: Those with human body with dog head, a humongous jelly-like thing that
-    can move on it's own and capture people inside it's body, lion that has wing
+  storyText: Those with human bodies with dog heads, a humongous jelly-like thing
+    that can move on its own and capture people inside its body, lions that has wings
     and can fly.
   description: 
   character: {fileID: 0}
@@ -3762,7 +3626,7 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 1.5
+    floatVal: 1
   durationOLD: 0
 --- !u!114 &7942186532902534133
 MonoBehaviour:
@@ -3778,8 +3642,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 131
   indentLevel: 0
-  storyText: Screams of agony ring across the whole venue and streets. As if mocking
-    the two that there's no such thing as 'safe'.
+  storyText: Screams of agony ring throughout the whole venue and streets. As if
+    mocking the two, saying that there's no such thing as 'safe'.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -3806,9 +3670,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 132
   indentLevel: 0
-  storyText: Chaos continue to ensue as more creatures seems to pop-up from thin
-    air, as they walk out of the unknown wormhole and are killing people left and
-    right.
+  storyText: Chaos continues as more creatures pop up, seemingly from thin air. They
+    walk out of the unknown wormhole and kill people left and right.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -3861,101 +3724,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 134
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 1.5
-  durationOLD: 0
---- !u!114 &4172203017007774164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 135
-  indentLevel: 0
-  targetObjects:
-  - {fileID: 0}
-  tweenType: 26
-  waitUntilFinished:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  fadeMode: 0
-  targetColor:
-    colorRef: {fileID: 0}
-    colorVal: {r: 1, g: 1, b: 1, a: 1}
-  targetAlpha:
-    floatRef: {fileID: 0}
-    floatVal: 0
---- !u!114 &8731814168708991154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e4c082f762243f6943909a4272096d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 136
-  indentLevel: 0
-  images:
-  - {fileID: 0}
-  sprite: {fileID: 518904343662534100, guid: ed85299f711750048aec11f533e9c81e, type: 3}
---- !u!114 &2761097468304834435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 137
-  indentLevel: 0
-  targetObjects:
-  - {fileID: 0}
-  tweenType: 26
-  waitUntilFinished:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  fadeMode: 0
-  targetColor:
-    colorRef: {fileID: 0}
-    colorVal: {r: 1, g: 1, b: 1, a: 1}
-  targetAlpha:
-    floatRef: {fileID: 0}
-    floatVal: 1
---- !u!114 &2929163579022929343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7690082274954462028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 138
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
@@ -4764,3 +4532,236 @@ MonoBehaviour:
   move: 0
   shiftIntoPlace: 0
   waitUntilFinished: 0
+--- !u!114 &6706933797879351032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 183
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1.5
+  durationOLD: 0
+--- !u!114 &5179531071743148950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 184
+  indentLevel: 0
+  targetObjects:
+  - {fileID: 0}
+  tweenType: 26
+  waitUntilFinished:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  fadeMode: 0
+  targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
+  targetAlpha:
+    floatRef: {fileID: 0}
+    floatVal: 0
+--- !u!114 &76287161124736731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 185
+  indentLevel: 0
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  targetGameObjectOLD: {fileID: 0}
+--- !u!114 &2255873908387601618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 186
+  indentLevel: 0
+  targetObjects:
+  - {fileID: 0}
+  tweenType: 26
+  waitUntilFinished:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  fadeMode: 0
+  targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
+  targetAlpha:
+    floatRef: {fileID: 0}
+    floatVal: 1
+--- !u!114 &7945407198648074053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 187
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1.5
+  durationOLD: 0
+--- !u!114 &5429078861448726145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 188
+  indentLevel: 0
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  targetGameObjectOLD: {fileID: 0}
+--- !u!114 &3640688367363638789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 190
+  indentLevel: 0
+  targetObjects:
+  - {fileID: 0}
+  tweenType: 26
+  waitUntilFinished:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  fadeMode: 0
+  targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
+  targetAlpha:
+    floatRef: {fileID: 0}
+    floatVal: 0
+--- !u!114 &2165071975051441139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e4c082f762243f6943909a4272096d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 191
+  indentLevel: 0
+  images:
+  - {fileID: 0}
+  sprite: {fileID: 6263020759536436090, guid: ad8a4f8adf473ec4eb1b12a5637edce9, type: 3}
+--- !u!114 &146464971974478903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6dd8d3a780f4d1ea772e3daf10c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 192
+  indentLevel: 0
+  targetObjects:
+  - {fileID: 0}
+  tweenType: 26
+  waitUntilFinished:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  fadeMode: 0
+  targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
+  targetAlpha:
+    floatRef: {fileID: 0}
+    floatVal: 1
+--- !u!114 &8309865964490895651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690082274954462028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 193
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1.5
+  durationOLD: 0
