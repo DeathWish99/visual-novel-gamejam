@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Resolute!
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 8031559313380047236, guid: b03e49466f45fac43b77f464c5cfcc69, type: 3}
   type: 0
   canTargetPlayer: 0
   canTargetCompanion: 0

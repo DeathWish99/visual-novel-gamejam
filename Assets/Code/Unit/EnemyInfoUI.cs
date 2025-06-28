@@ -13,9 +13,9 @@ public class EnemyInfoUI : MonoBehaviour
 
         var stats = unit.Stats;
 
-        nameText.text = stats.UnitName;
-        hpText.text = $"HP: {unit.CurrentHP}";
-        statsText.text = $"ATK: {stats.Attack}\nDEF: {stats.Defence}";
+        nameText.text = stats.UnitName.ToUpper();
+        hpText.text = $"hp: {unit.CurrentHP}";
+        statsText.text = $"atk: {stats.Attack}\ndef: {stats.Defence}";
     }
 
     public void Clear()

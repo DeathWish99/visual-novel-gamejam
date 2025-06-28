@@ -14,9 +14,9 @@ public class SkillInfoUI : MonoBehaviour
     {
         if (isLocked || skill == null) return;
 
-        nameText.text = skill.SkillName;
-        descriptionText.text = skill.Description;
-        statsText.text = skill.GetStatsText();
+        nameText.text = skill.SkillName.ToUpper();
+        descriptionText.text = skill.Description.ToLower();
+        statsText.text = skill.GetStatsText().ToLower();
     }
 
     public void LockSkillDisplay(Skill skill)

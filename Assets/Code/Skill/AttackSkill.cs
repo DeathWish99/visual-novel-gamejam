@@ -24,6 +24,7 @@ public class AttackSkill : Skill
 
     public override string GetStatsText()
     {
-        return $"DMG %: {damagePercent}\nCrit Rate: {CritRate}";
+        // return $"DMG %: {damagePercent}\nCrit Rate: {CritRate}";
+        return $"DMG %: {damagePercent}";
     }
 }

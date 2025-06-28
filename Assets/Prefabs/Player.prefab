@@ -32,6 +32,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2099110846440162034, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: stats
       value: 
