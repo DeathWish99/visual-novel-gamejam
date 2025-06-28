@@ -15,7 +15,7 @@ public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         IconImage = gameObject.GetComponent<Image>();
         Button = gameObject.GetComponent<Button>();
 
-        if (Skill != null && IconImage != null)
+        if (Skill != null && Skill.Icon != null && IconImage != null)
         {
             IconImage.sprite = Skill.Icon;
         }

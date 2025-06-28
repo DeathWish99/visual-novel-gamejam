@@ -8,6 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4254279605065136497, guid: e56044a1969432b43bca02ffdc844c93, type: 3}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3810973030523887739, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_text
       value: Orc
@@ -66,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5272522046697150707, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 115
       objectReference: {fileID: 0}
     - target: {fileID: 5272522046697150707, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_SizeDelta.y
@@ -102,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5272522046697150707, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 5272522046697150707, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -124,12 +148,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orc
       objectReference: {fileID: 0}
+    - target: {fileID: 6138767358097359096, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6138767358097359096, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6138767358097359096, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6428803996926866841, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6428803996926866841, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6428803996926866841, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -40
+      objectReference: {fileID: 0}
     - target: {fileID: 9164091021532958000, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 4e3403c1e19347147a0185e090cd547f, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1586389208490607023, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5336922198805636538, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
