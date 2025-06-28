@@ -19,7 +19,7 @@ public class SkillInfoUIManager : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.Instance.CurrentParameters.DisableKills)
+        if (GameManager.Instance.CurrentParameters.DisableSkills)
         {
             skillInfoUI.gameObject.SetActive(false);
         }
