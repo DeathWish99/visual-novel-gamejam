@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 5057579605630683699}
   - component: {fileID: 2862960001967142950}
   - component: {fileID: 4944661437567159507}
+  - component: {fileID: 5091569388985081547}
   m_Layer: 0
   m_Name: Dialog1-Flow
   m_TagString: Untagged
@@ -153,9 +154,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 3424176731913908062}
+  - {fileID: 7593413611385196539}
   selectedCommands:
-  - {fileID: 4944661437567159507}
+  - {fileID: 1438544540646837991}
   variables: []
   description: 
   stepPause: 0
@@ -181,8 +182,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 67
-    y: 68
+    x: 171
+    y: 70
     width: 103.979996
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -212,6 +213,7 @@ MonoBehaviour:
   - {fileID: 8713528755366971691}
   - {fileID: 7383611970731965084}
   - {fileID: 8490447193751432150}
+  - {fileID: 5091569388985081547}
   - {fileID: 1197949317057035850}
   - {fileID: 7832242617382372197}
   - {fileID: 6186497891180912328}
@@ -653,7 +655,7 @@ MonoBehaviour:
   indentLevel: 0
   images:
   - {fileID: 0}
-  sprite: {fileID: -7461149993471325691, guid: 2f30828aa97e21440bca78249047876b, type: 3}
+  sprite: {fileID: 6263020759536436090, guid: ad8a4f8adf473ec4eb1b12a5637edce9, type: 3}
 --- !u!114 &8492994716030478054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,7 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 149
   indentLevel: 0
-  storyText: 'Back to where we started running! '
+  storyText: 'Back to where we started! '
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2808,3 +2810,30 @@ MonoBehaviour:
   itemId: 224
   indentLevel: 0
   parameters: {fileID: 11400000, guid: 316ea7cc8cd761f4fa789d2a2c6c9855, type: 2}
+--- !u!114 &5091569388985081547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245767003701596898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 225
+  indentLevel: 0
+  storyText: Come on!
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
