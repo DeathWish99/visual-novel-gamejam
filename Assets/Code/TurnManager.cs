@@ -50,21 +50,15 @@ public class TurnManager : MonoBehaviour
 
     private void PopulateTurnQueue()
     {
-        allUnits.Sort((a, b) =>
-        {
-            if (a.Stats.Speed == b.Stats.Speed)
-            {
-                if (a.Stats.IsPlayer) return -1;
-                if (b.Stats.IsPlayer) return 1;
-                return 0;
-            }
-            return b.Stats.Speed.CompareTo(a.Stats.Speed);
-        });
+        CombatUnit player = allUnits.Find(u => u.Stats.IsPlayer && !u.IsDead);
+        List<CombatUnit> otherUnits = allUnits.FindAll(u => !u.Stats.IsPlayer && !u.IsDead);
 
-        foreach (var unit in allUnits)
-        {
-            if (!unit.IsDead)
-                turnQueue.Enqueue(unit);
-        }
+        otherUnits.Sort((a, b) => b.Stats.Speed.CompareTo(a.Stats.Speed));
+
+        if (player != null)
+            turnQueue.Enqueue(player);
+        
+        foreach (var unit in otherUnits)
+            turnQueue.Enqueue(unit);
     }
 }
