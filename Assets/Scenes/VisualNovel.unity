@@ -8945,7 +8945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 3300050545524105345, guid: f5867484f4adf0f4c998dc9ce0b6a3ea, type: 3}
+  selectedFlowchart: {fileID: 1855320977}
 --- !u!4 &1914982144
 Transform:
   m_ObjectHideFlags: 1
@@ -13312,6 +13312,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2831865879444848895, guid: f5867484f4adf0f4c998dc9ce0b6a3ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3300050545524105345, guid: f5867484f4adf0f4c998dc9ce0b6a3ea, type: 3}
+      propertyPath: selectedCommands.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3444676216024720717, guid: f5867484f4adf0f4c998dc9ce0b6a3ea, type: 3}
