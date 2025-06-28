@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215202287898923358, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c53eb5391b9d2644993adb201698b5e7, type: 2}
     - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_Type
       value: 0
@@ -27,6 +31,10 @@ PrefabInstance:
     - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_PreserveAspect

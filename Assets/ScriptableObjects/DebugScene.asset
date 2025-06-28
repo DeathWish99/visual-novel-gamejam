@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DebugScene
   m_EditorClassIdentifier: 
   hasCompanion: 1
-  enemies: 00000000
+  enemies: 0000000001000000
   enabledSkills: 0000000001000000
   disableSkills: 0
   nextDialogID: 1
