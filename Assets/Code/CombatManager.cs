@@ -25,6 +25,7 @@ public class CombatManager : MonoBehaviour
     public static event System.Action OnSkillUsed;
     public static event System.Action OnPlayerDied;
     public static event System.Action DisableSkills;
+    public static event System.Action OnVictory;
 
     // --------------------- Private Fields ---------------------
     private const string REGULAR_BGM = "CMBT01";
@@ -116,6 +117,9 @@ public class CombatManager : MonoBehaviour
     {
         SkillExecutor.Execute(skill, user, target);
         OnSkillUsed?.Invoke();
+
+        CheckForVictory();
+
         Invoke(nameof(EndCurrentTurn), 1.0f);
     }
 
@@ -127,7 +131,19 @@ public class CombatManager : MonoBehaviour
         int damage = PlayerUnit.Attack;
         target.TakeDamage(damage);
 
+        CheckForVictory();
+
         Invoke(nameof(EndCurrentTurn), 1.0f);
+    }
+
+    public void CheckForVictory()
+    {
+        bool allEnemiesDead = EnemyUnits.TrueForAll(unit => unit.IsDead);
+
+        if (allEnemiesDead)
+        {
+            HandleVictory();
+        }
     }
 
     // --------------------- Setup Methods ---------------------
@@ -202,6 +218,20 @@ public class CombatManager : MonoBehaviour
         OnTurnChanged?.Invoke(currentUnit);
         UpdateIconStates();
         HighlightCurrentUnitIcon(currentUnit);
+    }
+
+    private void HandleVictory()
+    {
+        StartCoroutine(ShowVictoryAndProceed());
+    }
+
+    private IEnumerator ShowVictoryAndProceed()
+    {
+        OnVictory?.Invoke();
+
+        yield return new WaitForSeconds(2f);
+
+        GameManager.Instance.LoadNextDialog();
     }
 
 

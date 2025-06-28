@@ -6,6 +6,7 @@ public class CombatUIController : MonoBehaviour
 {
     [SerializeField] private List<SkillButton> skillButtons;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject victoryPanel;
 
     private int cooldownTimer = 0;
 
@@ -15,6 +16,7 @@ public class CombatUIController : MonoBehaviour
         CombatManager.OnSkillUsed += HandleSkillUsed;
         CombatManager.OnPlayerDied += HandlePlayerDied;
         CombatManager.DisableSkills += HandleDisableSkills;
+        CombatManager.OnVictory += HandleVictory;
     }
 
     private void OnDisable()
@@ -22,6 +24,7 @@ public class CombatUIController : MonoBehaviour
         CombatManager.OnTurnChanged -= HandleTurnChanged;
         CombatManager.OnSkillUsed -= HandleSkillUsed;
         CombatManager.OnPlayerDied -= HandlePlayerDied;
+        CombatManager.OnVictory -= HandleVictory;
     }
 
     private void HandleTurnChanged(CombatUnit unit)
@@ -61,6 +64,11 @@ public class CombatUIController : MonoBehaviour
         {
             button.gameObject.SetActive(false);
         }
+    }
+
+    private void HandleVictory()
+    {
+        victoryPanel.SetActive(true);
     }
 
     private bool PlayerCanUseSkill()

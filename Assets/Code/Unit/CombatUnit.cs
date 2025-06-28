@@ -94,6 +94,8 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         UpdateHealthBar();
 
+        CombatManager.Instance.CheckForVictory();
+
         if (IsDead)
         {
             if (Stats.IsPlayer)
