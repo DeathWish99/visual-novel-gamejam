@@ -156,13 +156,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 3424176731913908062}
   selectedCommands:
-  - {fileID: 6477273650704532889}
-  - {fileID: 7622876517100375862}
-  - {fileID: 6928236605280801093}
-  - {fileID: 8614095299939625068}
-  - {fileID: 520846266759514258}
-  - {fileID: 9144262390944432210}
-  - {fileID: 1532066509926950035}
+  - {fileID: 9060946913512614054}
   variables: []
   description: 
   stepPause: 0
@@ -1946,8 +1940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 192
   indentLevel: 0
-  storyText: Oy! <Random Name> Get your shit up if you don't want to end up like
-    <Random Name 2>
+  storyText: Oy! Adam Get your shit up if you don't want to end up like Bambang
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
