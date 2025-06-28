@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Orc
   m_EditorClassIdentifier: 
   unitName: Goblin
-  icon: {fileID: 0}
+  icon: {fileID: -1050550474440367076, guid: d646c7575587fed44af6d8f5d2a24f24, type: 3}
   isPlayer: 0
   isCompanion: 0
   maxHP: 50

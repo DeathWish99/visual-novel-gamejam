@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bd2fff70cc40649ac41d9ae82c6875, type: 3}
   m_Name: Heroine
   m_EditorClassIdentifier: 
-  unitName: Yui
-  icon: {fileID: 0}
+  unitName: Lila
+  icon: {fileID: -7164651513699230507, guid: 0f35eb67e937fad4bb67940307a91dd3, type: 3}
   isPlayer: 0
   isCompanion: 1
   maxHP: 20
   attack: 4
   defence: 2
   speed: 12
+  hasSkill: 0

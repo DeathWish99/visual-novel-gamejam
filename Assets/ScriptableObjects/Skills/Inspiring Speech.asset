@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Debug Buff Skill
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 1750369922122837584, guid: a96aa202ad57f3c49a8a5aa39ad4032f, type: 3}
   type: 1
   canTargetPlayer: 0
   canTargetCompanion: 1
