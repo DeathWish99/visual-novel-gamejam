@@ -10,8 +10,12 @@ public class CombatSceneParameters : ScriptableObject
     [SerializeField] private List<SkillType> enabledSkills;
     [SerializeField] private bool disableSkills;
 
+    [SerializeField] private string nextDialogID;
+
     public bool HasCompanion => hasCompanion;
     public List<EnemyType> Enemies => enemies;
     public List<SkillType> EnabledSkills => enabledSkills;
     public bool DisableKills => disableSkills;
+
+    public string NextDialogID => nextDialogID;
 }

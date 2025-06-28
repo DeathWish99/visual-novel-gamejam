@@ -15,3 +15,5 @@ MonoBehaviour:
   hasCompanion: 0
   enemies: 00000000
   enabledSkills: 
+  disableSkills: 1
+  nextDialogID: Dialog-1.3

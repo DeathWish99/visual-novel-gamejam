@@ -4,9 +4,10 @@ using VisualNovel.GameJam.Manager;
 [System.Serializable]
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
     [SerializeField] private string combatSceneName;
 
-    public static GameManager Instance { get; private set; }
     public CombatSceneParameters CurrentParameters { get; protected set; }
 
     protected virtual void Awake()
@@ -25,5 +26,10 @@ public class GameManager : MonoBehaviour
     {
         CurrentParameters = parameters;
         SceneLoaderManager.Instance.LoadSceneAdditive(combatSceneName);
+    }
+
+    public void LoadNextDialog()
+    {
+        VNManager.Instance.StartDialogue(CurrentParameters.NextDialogID);
     }
 }

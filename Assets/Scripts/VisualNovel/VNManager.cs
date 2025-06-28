@@ -1,3 +1,5 @@
+using Fungus;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +22,9 @@ namespace VisualNovel.GameJam.Manager
         }
         #endregion
 
+        [Header("VN Data")]
+        [SerializeField] private List<Flowchart> flowcharts;
+
         [Header("VN Button")]
         [SerializeField] private Button menuButton;
 
@@ -27,6 +32,27 @@ namespace VisualNovel.GameJam.Manager
         {
             menuButton.onClick.RemoveAllListeners();
             menuButton.onClick.AddListener(() => UniversalMenuManager.Instance.OnOpenPauseMenu?.Invoke());
+
+            StartDialogue("Prologue");
+        }
+
+        public void StartDialogue(string blockName)
+        {
+            Debug.Log("Find Dialog...");
+
+            foreach (Flowchart fc in flowcharts)
+            {
+                if (fc == null) continue;
+
+                Block block = fc.FindBlock(blockName);
+
+                if (block != null)
+                {
+                    Debug.Log("Play Dialog...");
+                    fc.ExecuteBlock(block);
+                    return;
+                }
+            }
         }
 
         #region Auto & Skip
