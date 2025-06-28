@@ -15,7 +15,7 @@ public class CombatSceneParameters : ScriptableObject
     public bool HasCompanion => hasCompanion;
     public List<EnemyType> Enemies => enemies;
     public List<SkillType> EnabledSkills => enabledSkills;
-    public bool DisableKills => disableSkills;
+    public bool DisableSkills => disableSkills;
 
     public string NextDialogID => nextDialogID;
 }

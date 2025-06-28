@@ -27,6 +27,8 @@ public class CombatManager : MonoBehaviour
     public static event System.Action DisableSkills;
 
     // --------------------- Private Fields ---------------------
+    private const string REGULAR_BGM = "CMBT01";
+    private const string SPECIAL_BGM = "CMBT02";
     private Dictionary<CombatUnit, GameObject> UnitIcons { get; set; }
     private Queue<CombatUnit> TurnQueue { get; set; }
     private List<CombatUnit> Units { get; set; }
@@ -54,9 +56,14 @@ public class CombatManager : MonoBehaviour
         SetUpUnits();
         SetUpTurnOrder();
 
-        if (GameManager.Instance.CurrentParameters.DisableKills)
+        if (GameManager.Instance.CurrentParameters.DisableSkills)
         {
             DisableSkills?.Invoke();
+            AudioManager.Instance.PlayBGM(REGULAR_BGM);
+        }
+        else
+        {
+            AudioManager.Instance.PlayBGM(SPECIAL_BGM);
         }
 
         turnManager.StartNextTurn();
