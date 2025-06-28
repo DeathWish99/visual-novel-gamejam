@@ -8289,7 +8289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 6578613616346291699, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
+  selectedFlowchart: {fileID: 1968669498}
 --- !u!4 &1914982144
 Transform:
   m_ObjectHideFlags: 1
@@ -10411,7 +10411,7 @@ PrefabInstance:
       objectReference: {fileID: 616722336}
     - target: {fileID: 6578613616346291699, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
       propertyPath: selectedCommands.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6578613616346291699, guid: e6b5bb57394a7764e832770b40f69453, type: 3}
       propertyPath: 'selectedBlocks.Array.data[0]'
