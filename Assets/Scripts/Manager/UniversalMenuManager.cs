@@ -29,6 +29,7 @@ namespace VisualNovel.GameJam.Manager
         [SerializeField] private GameObject[] topPanelCloseButtons;
         [SerializeField] private CanvasGroup topPanelCanvasGroup;
         [SerializeField] private Image pageIcon;
+        [SerializeField] private Sprite[] pageIcons;
         [SerializeField] private TextMeshProUGUI pageTitleText;
 
         [Header("Panel")]
@@ -60,7 +61,7 @@ namespace VisualNovel.GameJam.Manager
         #region Main Menu Panel
         private void OpenSettingMainMenu()
         {
-            SetCurrentPageHeader(null, "Setting");
+            SetCurrentPageHeader(pageIcons[0], "Setting");
             ShowHeaderCloseButton(true);
 
             topPanelCloseButtons[0].GetComponent<Button>().onClick.RemoveAllListeners();
@@ -80,7 +81,7 @@ namespace VisualNovel.GameJam.Manager
         #region Pause Menu Panel
         private void OpenPauseMenu()
         {
-            SetCurrentPageHeader(null, "Pause");
+            SetCurrentPageHeader(pageIcons[1], "Pause");
             ShowHeaderCloseButton(true);
 
             topPanelCloseButtons[0].GetComponent<Button>().onClick.RemoveAllListeners();
@@ -98,7 +99,7 @@ namespace VisualNovel.GameJam.Manager
 
         private void OpenSettingPause()
         {
-            SetCurrentPageHeader(null, "Setting");
+            SetCurrentPageHeader(pageIcons[0], "Setting");
             ShowHeaderCloseButton(false);
 
             topPanelCloseButtons[1].GetComponent<Button>().onClick.RemoveAllListeners();
@@ -109,7 +110,7 @@ namespace VisualNovel.GameJam.Manager
 
         private void CloseSettingPause()
         {
-            SetCurrentPageHeader(null, "Pause");
+            SetCurrentPageHeader(pageIcons[1], "Pause");
             ShowHeaderCloseButton(true);
 
             ToggleCanvasGroupPanel(settingPanel.canvasGroup, false);

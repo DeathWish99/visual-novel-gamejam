@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5e70e692059a88044944affa2e1a9fd0
+guid: 56f5e19c21b922b44bd348b4993a9dfb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2350381881316096181
-    second: VN_Goblin_0
+      213: 7179954456944931234
+    second: UI_IconSave_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: VN_Goblin_0
+      name: UI_IconSave_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1468
-        height: 2068
+        width: 60
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b47c3adb124c16fd0800000000000000
-      internalID: -2350381881316096181
+      spriteID: 2a17fad998254a360800000000000000
+      internalID: 7179954456944931234
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      VN_Goblin_0: -2350381881316096181
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
