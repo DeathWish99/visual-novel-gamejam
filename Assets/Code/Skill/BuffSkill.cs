@@ -18,4 +18,14 @@ public class BuffSkill : Skill
             target.ApplyEffect(stat, BuffAmount, Duration);
         }
     }
+
+    public override string GetStatsText()
+    {
+        string prefix = buffAmount < 0 ? "Debuff" : "Buff";
+
+        string affectedStats = string.Join(", ", BuffedStats);
+
+        return $"{prefix} Amount: {buffAmount}\nDuration: {duration} Turns\nAffects: {affectedStats}";
+    }
+
 }

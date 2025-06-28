@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   unitName: Goblin
+  icon: {fileID: 0}
   isPlayer: 0
   isCompanion: 0
-  maxHP: 5
-  attack: 1
-  defence: 0
-  speed: 1
+  maxHP: 10
+  attack: 3
+  defence: 1
+  speed: 7

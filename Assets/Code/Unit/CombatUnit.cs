@@ -6,28 +6,49 @@ using UnityEngine.UI;
 
 public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private CombatUnitStats stats;
+    // === Constants ===
+    private const string ATTACK_TRIGGER = "Attack";
 
+    // === Serialized Fields ===
+    [SerializeField] private CombatUnitStats stats;
+    [SerializeField] private Image healthFill;
+
+    // === Public Properties ===
     public CombatUnitStats Stats => stats;
+    public IAgent Agent { get; private set; }
     public bool IsDead => CurrentHP <= 0;
     public int Attack => Stats.Attack + AttackBuff;
+    public int CurrentHP { get; private set; }
 
-    private int CurrentHP { get; set; }
-    private bool IsEnemy => !Stats.IsPlayer && !Stats.IsCompanion;
-    private List<ActiveEffect> ActiveEffects { get; set; }
+    // === Private Fields ===
     private int AttackBuff { get; set; }
+    private List<ActiveEffect> ActiveEffects { get; set; }
+    private bool IsEnemy => !Stats.IsPlayer && !Stats.IsCompanion;
+
     private Image Image { get; set; }
     private Color OriginalColour { get; set; }
     private Color CurrentColour { get; set; }
+    private Animator Animator { get; set; }
 
+    private CharacterHighlight characterHighlight;
+
+    // === Unity Methods ===
     private void Awake()
     {
         CurrentHP = Stats.MaxHP;
+        AttackBuff = 0;
         ActiveEffects = new List<ActiveEffect>();
+
         Image = gameObject.GetComponent<Image>();
         OriginalColour = Image.color;
+
+        Animator = gameObject.GetComponent<Animator>();
+        Agent = GetComponent<IAgent>();
+
+        characterHighlight = GetComponent<CharacterHighlight>();
     }
 
+    // === Public Event Handlers ===
     public void OnClick()
     {
         CombatManager combatManager = CombatManager.Instance;
@@ -35,14 +56,14 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         switch (combatManager.CurrentInputMode)
         {
             case InputMode.ATTACK:
-                if (IsEnemy) combatManager.TakePlayerAction(this);
+                if (IsEnemy)
+                    combatManager.TakePlayerAction(this);
                 break;
             case InputMode.SKILL:
-                if (CanAttack(combatManager.SelectedSkill))
-                {
+                if (CanExecuteSkill(combatManager.SelectedSkill))
                     combatManager.ExecuteSkill(this);
-                }
-
+                break;
+            default:
                 break;
         }
     }
@@ -50,13 +71,17 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnStartTurn()
     {
         ReduceActiveEffectRemainingDurations();
-
-        Image.color = Color.yellow;
+        characterHighlight.SetActiveTurn(true);
     }
 
     public void OnEndTurn()
     {
-        Image.color = OriginalColour;
+        characterHighlight.SetActiveTurn(false);
+    }
+
+    public void OnAttack()
+    {
+        Animator.SetTrigger(ATTACK_TRIGGER);
     }
 
     public void TakeDamage(int rawDamage)
@@ -67,9 +92,17 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         CurrentHP -= finalDamage;
         CurrentHP = Mathf.Max(CurrentHP, 0);
 
+        UpdateHealthBar();
+
         if (IsDead)
         {
+            if (Stats.IsPlayer)
+            {
+                CombatManager.Instance.HandlePlayerDied();
+            }
+
             gameObject.SetActive(false);
+            return;
         }
 
         StartCoroutine(FlashColour(Color.red));
@@ -87,11 +120,25 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 break;
         }
 
-        ActiveEffects.Add(new ActiveEffect(stat, amount, duration));
+        UpdateHealthBar();
 
-        StartCoroutine(FlashColour(Color.blue));
+        ActiveEffects.Add(new ActiveEffect(stat, amount, duration));
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!Stats.IsPlayer && !Stats.IsCompanion)
+        {
+            EnemyInfoUIManager.Instance.Show(this);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        EnemyInfoUIManager.Instance.Clear();
+    }
+
+    // === Private Methods ===
     private void ReduceActiveEffectRemainingDurations()
     {
         foreach (var activeEffect in ActiveEffects)
@@ -103,7 +150,7 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 switch (activeEffect.Stat)
                 {
                     case StatType.HP:
-                        CurrentHP += -activeEffect.Amount;
+                        CurrentHP -= activeEffect.Amount;
                         break;
                     case StatType.ATK:
                         AttackBuff = 0;
@@ -115,9 +162,10 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         ActiveEffects.RemoveAll(effect => effect.ShouldRemove());
     }
 
-    private bool CanAttack(Skill selectedSkill)
+    private bool CanExecuteSkill(Skill selectedSkill)
     {
-        return (IsEnemy && selectedSkill.CanTargetEnemy) || (Stats.IsCompanion && selectedSkill.CanTargetCompanion);
+        return (IsEnemy && selectedSkill.CanTargetEnemy) ||
+               (Stats.IsCompanion && selectedSkill.CanTargetCompanion);
     }
 
     private IEnumerator FlashColour(Color colour)
@@ -136,14 +184,12 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         Image.color = OriginalColour;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    private void UpdateHealthBar()
     {
-        CurrentColour = Image.color;
-        Image.color = Color.magenta;
+        if (healthFill != null)
+        {
+            healthFill.fillAmount = (float)CurrentHP / Stats.MaxHP;
+        }
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        Image.color = CurrentColour;
-    }
 }

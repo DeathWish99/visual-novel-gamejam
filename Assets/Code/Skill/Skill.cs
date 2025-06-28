@@ -11,9 +11,13 @@ public abstract class Skill : ScriptableObject
     [SerializeField] protected bool canTargetEnemy;
 
     public Sprite Icon => icon;
+    public string SkillName => skillName;
+    public string Description => description;
     public bool CanTargetPlayer => canTargetPlayer;
     public bool CanTargetCompanion => canTargetCompanion;
     public bool CanTargetEnemy => canTargetEnemy;
 
     public abstract void Activate(CombatUnit user, CombatUnit target);
+
+    public abstract string GetStatsText();
 }

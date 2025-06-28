@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Heroine
   m_EditorClassIdentifier: 
   unitName: Yui
+  icon: {fileID: 0}
   isPlayer: 0
   isCompanion: 1
-  maxHP: 7
-  attack: 1
-  defence: 0
-  speed: 2
+  maxHP: 20
+  attack: 4
+  defence: 2
+  speed: 12

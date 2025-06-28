@@ -2,32 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using VisualNovel.GameJam.Manager;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject companionPrefab;
-    [SerializeField] private List<EnemyPrefabPair> enemyPrefabs;
-    [SerializeField] private RectTransform playerPosition;
-    [SerializeField] private RectTransform companionPosition;
-    [SerializeField] private List<RectTransform> enemyPositions;
-    [SerializeField] private List<SkillButton> skillButtons;
+    // --------------------- Serialized Fields ---------------------
+    [SerializeField] private UnitSpawner unitSpawner;
+    [SerializeField] private TurnManager turnManager;
 
-    private List<SkillButton> SkillButtons => skillButtons;
+    [Header("Turn Order UI")]
+    [SerializeField] private RectTransform turnOrderBar;
+    [SerializeField] private GameObject turnOrderIconPrefab;
 
+    // --------------------- Properties ---------------------
     public static CombatManager Instance { get; private set; }
     public InputMode CurrentInputMode { get; private set; }
     public Skill SelectedSkill { get; private set; }
-    private Dictionary<EnemyType, GameObject> PrefabMap { get; set; }
+
+    // --------------------- Public Fields ---------------------
+    public static event System.Action<CombatUnit> OnTurnChanged;
+    public static event System.Action OnSkillUsed;
+    public static event System.Action OnPlayerDied;
+    public static event System.Action DisableSkills;
+
+    // --------------------- Private Fields ---------------------
+    private Dictionary<CombatUnit, GameObject> UnitIcons { get; set; }
     private Queue<CombatUnit> TurnQueue { get; set; }
     private List<CombatUnit> Units { get; set; }
     private List<CombatUnit> PlayerUnits { get; set; }
     private List<CombatUnit> EnemyUnits { get; set; }
+    private List<CombatUnit> IconDisplayOrder { get; set; }
     private CombatUnit PlayerUnit { get; set; }
     private SkillExecutor SkillExecutor { get; set; }
-    private int SkillButtonTimer { get; set; }
 
+    // --------------------- Unity Lifecycle ---------------------
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,11 +46,20 @@ public class CombatManager : MonoBehaviour
         }
 
         Instance = this;
+    }
 
+    private void Start()
+    {
         SetUp();
         SetUpUnits();
         SetUpTurnOrder();
-        StartNextTurn();
+
+        if (GameManager.Instance.CurrentParameters.DisableKills)
+        {
+            DisableSkills?.Invoke();
+        }
+
+        turnManager.StartNextTurn();
     }
 
     private void Update()
@@ -52,234 +70,200 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    // --------------------- Public Methods ---------------------
     public void OnSkillButtonClick(Skill skill)
     {
-        DisableSkillButtons();
         CurrentInputMode = InputMode.SKILL;
         SelectedSkill = skill;
     }
 
-    public void ExecuteSkill(CombatUnit target)
+    public List<CombatUnit> GetTargets(CombatUnit targeter)
+    {
+        return PlayerUnits.Contains(targeter) ? EnemyUnits : PlayerUnits;
+    }
+
+    public void HandlePlayerDied()
+    {
+        OnPlayerDied?.Invoke();
+    }
+
+    public void ReloadScene()
+    {
+        StartCoroutine(ReloadAfterDelay(2f));
+    }
+
+    // --------------------- Player Actions --------------------
+    public void OnPlayerTurn()
     {
         CurrentInputMode = InputMode.ATTACK;
-        SkillExecutor.Execute(SelectedSkill, PlayerUnit, target);
-        SkillButtonTimer = 2;
-        Invoke(nameof(StartNextTurn), 1.0f);
+    }
+
+    public void ExecuteSkill(CombatUnit target)
+    {
+        CurrentInputMode = InputMode.NONE;
+
+        ExecuteSkill(SelectedSkill, PlayerUnit, target);
+    }
+
+    public void ExecuteSkill(Skill skill, CombatUnit user, CombatUnit target)
+    {
+        SkillExecutor.Execute(skill, user, target);
+        OnSkillUsed?.Invoke();
+        Invoke(nameof(EndCurrentTurn), 1.0f);
     }
 
     public void TakePlayerAction(CombatUnit target)
     {
-        int damage = PlayerUnit.Attack;
+        CurrentInputMode = InputMode.NONE;
 
+        PlayerUnit.OnAttack();
+        int damage = PlayerUnit.Attack;
         target.TakeDamage(damage);
 
-        Invoke(nameof(StartNextTurn), 1.0f);
+        Invoke(nameof(EndCurrentTurn), 1.0f);
     }
 
-    public void OnPlayerDied()
-    {
-
-    }
-
+    // --------------------- Setup Methods ---------------------
     private void SetUp()
     {
-        SkillExecutor = gameObject.GetComponent<SkillExecutor>();
-
-        SetUpPrefabMap();
-
+        UnitIcons = new();
+        IconDisplayOrder = new();
+        Units = new List<CombatUnit>();
+        PlayerUnits = new List<CombatUnit>();
+        EnemyUnits = new List<CombatUnit>();
+        SkillExecutor = GetComponent<SkillExecutor>();
         TurnQueue = new Queue<CombatUnit>();
-    }
-
-    private void SetUpPrefabMap()
-    {
-        PrefabMap = new Dictionary<EnemyType, GameObject>();
-
-        foreach (var pair in enemyPrefabs)
-        {
-            if (!PrefabMap.ContainsKey(pair.type)) PrefabMap.Add(pair.type, pair.prefab);
-        }
-    }
-
-    private void SetUpTurnOrder()
-    {
-        Units.Sort((a, b) =>
-        {
-            if (a.Stats.Speed == b.Stats.Speed)
-            {
-                if (a.Stats.IsPlayer) return -1;
-                if (b.Stats.IsPlayer) return 1;
-                return 0;
-            }
-            return b.Stats.Speed.CompareTo(a.Stats.Speed);
-        });
-
-        foreach (var unit in Units)
-        {
-            if (!unit.IsDead) TurnQueue.Enqueue(unit);
-        }
     }
 
     private void SetUpUnits()
     {
-        CombatSceneParameters parameters = GameManager.Instance.CurrentParameters;
-        Units = new List<CombatUnit>();
-        EnemyUnits = new List<CombatUnit>();
-        PlayerUnits = new List<CombatUnit>();
-        PlayerUnit = Instantiate(playerPrefab, playerPosition).GetComponent<CombatUnit>();
+        SpawnPlayerUnits();
+        SpawnEnemies();
+        CreateTurnOrderIcons();
+    }
+
+    private void SetUpTurnOrder()
+    {
+        turnManager.Initialise(Units);
+        turnManager.OnTurnStarted += HandleTurnStarted;
+    }
+
+    private void SpawnPlayerUnits()
+    {
+        bool hasCompanion = GameManager.Instance.CurrentParameters.HasCompanion;
+
+        // Spawn player
+        PlayerUnit = unitSpawner.SpawnPlayer();
 
         Units.Add(PlayerUnit);
         PlayerUnits.Add(PlayerUnit);
 
-        if (parameters.HasCompanion)
+        // Spawn companion
+        if (hasCompanion)
         {
-            CombatUnit companionUnit = Instantiate(companionPrefab, companionPosition).GetComponent<CombatUnit>();
+            CombatUnit companionUnit = unitSpawner.SpawnCompanion();
 
             Units.Add(companionUnit);
             PlayerUnits.Add(companionUnit);
+            IconDisplayOrder.Add(companionUnit);
         }
 
-        int enemyPositionCounter = 0;
+        IconDisplayOrder.Add(PlayerUnit);
+    }
 
-        foreach (var enemyType in parameters.Enemies)
+    private void SpawnEnemies()
+    {
+        List<EnemyType> enemyTypes = GameManager.Instance.CurrentParameters.Enemies;
+        List<CombatUnit> enemies = unitSpawner.SpawnEnemies(enemyTypes);
+
+        foreach (var enemy in enemies)
         {
-            if (PrefabMap.TryGetValue(enemyType, out GameObject prefab))
+            Units.Add(enemy);
+            EnemyUnits.Add(enemy);
+            IconDisplayOrder.Add(enemy);
+        }
+    }
+
+    // --------------------- Turn Logic ---------------------
+    private void EndCurrentTurn()
+    {
+        turnManager.EndTurn();
+    }
+
+    private void HandleTurnStarted(CombatUnit currentUnit)
+    {
+        OnTurnChanged?.Invoke(currentUnit);
+        UpdateIconStates();
+        HighlightCurrentUnitIcon(currentUnit);
+    }
+
+
+    // --------------------- UI Helpers ---------------------
+    private void CreateTurnOrderIcons()
+    {
+        foreach (CombatUnit unit in IconDisplayOrder)
+        {
+            GameObject icon = Instantiate(turnOrderIconPrefab, turnOrderBar);
+
+            Image iconImage = icon.GetComponent<Image>();
+
+            if (iconImage != null && unit.Stats.Icon)
             {
-                CombatUnit enemyUnit = Instantiate(prefab, enemyPositions[enemyPositionCounter]).GetComponent<CombatUnit>();
+                iconImage.sprite = unit.Stats.Icon;
+            }
 
-                Units.Add(enemyUnit);
-                EnemyUnits.Add(enemyUnit);
+            UnitIcons.Add(unit, icon);
+        }
+    }
 
-                enemyPositionCounter++;
+    private void HighlightCurrentUnitIcon(CombatUnit currentUnit)
+    {
+        foreach (var pair in UnitIcons)
+        {
+            bool isCurrent = pair.Key == currentUnit;
+
+            Vector3 targetScale = isCurrent ? Vector3.one * 1.3f : Vector3.one;
+
+            StartCoroutine(ScaleIcon(pair.Value, targetScale, 0.3f));
+        }
+    }
+
+    private IEnumerator ScaleIcon(GameObject icon, Vector3 targetScale, float duration)
+    {
+        Vector3 startScale = icon.transform.localScale;
+        float time = 0;
+
+        while (time < duration)
+        {
+            icon.transform.localScale = Vector3.Lerp(startScale, targetScale, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        icon.transform.localScale = targetScale;
+    }
+
+    private void UpdateIconStates()
+    {
+        foreach (var pair in UnitIcons)
+        {
+            var unit = pair.Key;
+            var icon = pair.Value;
+            var canvasGroup = icon.GetComponent<CanvasGroup>();
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = unit.IsDead ? 0.3f : 1f;
+                icon.GetComponent<Image>().color = unit.IsDead
+                    ? new Color(1f, 1f, 1f, 0.3f)
+                    : Color.white;
             }
         }
     }
-
-    private void StartNextTurn()
+    
+    private IEnumerator ReloadAfterDelay(float seconds)
     {
-        if (HasBattleEnded())
-        {
-            // Invoke(nameof(ReloadScene), 1.0f);
-            return;
-        }
-
-        if (TurnQueue.Count == 0)
-        {
-            SetUpTurnOrder();
-            StartNextTurn();
-            return;
-        }
-
-        foreach (var unit in Units)
-        {
-            unit.OnEndTurn();
-        }
-
-        CombatUnit currentUnit = TurnQueue.Dequeue();
-        Debug.Log($"Current Turn: {currentUnit.Stats.UnitName}");
-
-        if (currentUnit.IsDead)
-        {
-            Debug.Log($"{currentUnit.Stats.name} is dead. Going to next turn...");
-            StartNextTurn();
-            return;
-        }
-
-        currentUnit.OnStartTurn();
-
-        if (currentUnit.Stats.IsPlayer)
-        {
-            if (SkillButtonTimer > 0)
-            {
-                SkillButtonTimer--;
-            }
-
-            if (SkillButtonTimer <= 0)
-            {
-                EnableSkillButtons();
-            }
-
-            return;
-        }
-
-        DisableSkillButtons();
-
-        StartCoroutine(InvokeAIAction(currentUnit, 1.0f));
-    }
-
-
-    private IEnumerator InvokeAIAction(CombatUnit currentUnit, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        TakeAction(currentUnit);
-    }
-
-
-    private void TakeAction(CombatUnit currentUnit)
-    {
-        CombatUnit target = PickTarget(currentUnit);
-
-        if (target == null)
-        {
-            StartNextTurn();
-            return;
-        }
-
-        target.TakeDamage(currentUnit.Attack);
-
-        Invoke(nameof(StartNextTurn), 1.0f);
-    }
-
-    private CombatUnit PickTarget(CombatUnit currentUnit)
-    {
-        List<CombatUnit> targets = PlayerUnits.Contains(currentUnit) ? EnemyUnits : PlayerUnits;
-
-        foreach (var target in targets)
-        {
-            if (!target.IsDead) return target;
-        }
-
-        return null;
-    }
-
-    private bool HasBattleEnded()
-    {
-        bool isPlayerDead = PlayerUnit.IsDead;
-        bool areAllEnemiesDead = EnemyUnits.TrueForAll(unit => unit.IsDead);
-
-        if (isPlayerDead)
-        {
-            Debug.Log("You are dead.");
-            Invoke(nameof(ReloadScene), 3.0f);
-            return true;
-        }
-
-        if (areAllEnemiesDead)
-        {
-            Debug.Log("You won.");
-            return true;
-        }
-
-        return false;
-    }
-
-    private void ReloadScene()
-    {
-        SceneManager.LoadScene("CombatScene");
-    }
-
-    private void DisableSkillButtons()
-    {
-        foreach (var button in SkillButtons)
-        {
-            button.Disable();
-        }
-    }
-
-    private void EnableSkillButtons()
-    {
-        foreach (var button in SkillButtons)
-        {
-            button.Enable();
-        }
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

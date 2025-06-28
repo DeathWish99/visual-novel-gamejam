@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SkillButton : MonoBehaviour
+public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] private Skill skill;
 
@@ -9,7 +10,7 @@ public class SkillButton : MonoBehaviour
     private Image IconImage { get; set; }
     private Button Button { get; set; }
 
-    private void Start()
+    private void Awake()
     {
         IconImage = gameObject.GetComponent<Image>();
         Button = gameObject.GetComponent<Button>();
@@ -33,5 +34,20 @@ public class SkillButton : MonoBehaviour
     public void Enable()
     {
         Button.interactable = true;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SkillInfoUIManager.Instance.ShowSkill(skill);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SkillInfoUIManager.Instance.Clear();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        SkillInfoUIManager.Instance.LockSkillDisplay(skill);
     }
 }
