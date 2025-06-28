@@ -32,4 +32,9 @@ public class GameManager : MonoBehaviour
     {
         VNManager.Instance.StartDialogue(CurrentParameters.NextDialogID);
     }
+
+    public void BackHome()
+    {
+        SceneLoaderManager.Instance.LoadNewScene("MainMenu");
+    }
 }
