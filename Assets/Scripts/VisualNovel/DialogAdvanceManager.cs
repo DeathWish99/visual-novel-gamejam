@@ -8,6 +8,7 @@ namespace VisualNovel.GameJam.Manager
     public class DialogAdvanceManager : MonoBehaviour
     {
         [SerializeField] private float autoDelay = 1.5f;
+        [SerializeField] private CanvasGroup log;
 
         private SayDialog sayDialog;
         private MenuDialog menuDialog;
@@ -25,8 +26,9 @@ namespace VisualNovel.GameJam.Manager
 
         private void Update()
         {
-            if ((VNManager.Instance.IsAutoMode || VNManager.Instance.IsSkipMode) && menuDialog != null && menuDialog.gameObject.activeInHierarchy)
+            if ((VNManager.Instance.IsAutoMode || VNManager.Instance.IsSkipMode) && menuDialog != null && log.alpha == 1)
             {
+                //Debug.Log("1");
                 VNManager.Instance.TurnOffAll();
             }
 
@@ -34,12 +36,14 @@ namespace VisualNovel.GameJam.Manager
                 continueButton != null && continueButton.gameObject.activeInHierarchy &&
                 autoCoroutine == null)
             {
+                //Debug.Log("2");
                 float delay = VNManager.Instance.IsSkipMode ? 0.1f : autoDelay;
                 autoCoroutine = StartCoroutine(AutoClickAfterDelay(delay));
             }
 
             if (!VNManager.Instance.IsAutoMode && !VNManager.Instance.IsSkipMode && autoCoroutine != null)
             {
+                //Debug.Log("3");
                 StopCoroutine(autoCoroutine);
                 autoCoroutine = null;
             }
@@ -47,6 +51,7 @@ namespace VisualNovel.GameJam.Manager
 
         private IEnumerator AutoClickAfterDelay(float delay)
         {
+            Debug.Log("Auto");
             yield return new WaitForSeconds(delay);
 
             if (continueButton != null && continueButton.gameObject.activeInHierarchy)

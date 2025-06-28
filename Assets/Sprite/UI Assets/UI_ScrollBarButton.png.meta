@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI_ScrollBarButton_0: -6780961364549529063
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -65,6 +65,7 @@ namespace VisualNovel.GameJam.Manager
         public void ToggleAutoMode()
         {
             _isAutoMode = !IsAutoMode;
+            Debug.Log("Auto = " + _isAutoMode);
         }
 
         public void ToggleSkipMode()
