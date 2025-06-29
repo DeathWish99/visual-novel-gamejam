@@ -31,6 +31,8 @@ public class AIAgent : MonoBehaviour, IAgent
             }
         }
 
+        yield return new WaitForSeconds(1f);
+
         onComplete?.Invoke();
     }
 

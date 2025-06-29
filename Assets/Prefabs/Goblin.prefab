@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215202287898923358, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9825c0256a854f14ea83d7ec28272503, type: 2}
     - target: {fileID: 2042495028814183952, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
       propertyPath: m_Type
       value: 0
@@ -152,6 +156,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 9b8fb0ad6f8c381489f16deb74008ffc, type: 2}
+    - target: {fileID: 9164091021532958000, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}
+      propertyPath: attackSFXID
+      value: GOBLIN_ATTACK
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1586389208490607023, guid: ba3f30a4bfe87b14db6847d50a1d0c64, type: 3}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VisualNovel.GameJam.Manager;
 
 public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -12,6 +13,7 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     // === Serialized Fields ===
     [SerializeField] private CombatUnitStats stats;
     [SerializeField] private Image healthFill;
+    [SerializeField] private string attackSFXID;
 
     // === Public Properties ===
     public CombatUnitStats Stats => stats;
@@ -82,6 +84,11 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnAttack()
     {
         Animator.SetTrigger(ATTACK_TRIGGER);
+
+        if (!string.IsNullOrEmpty(attackSFXID))
+        {
+            AudioManager.Instance.PlaySFX(attackSFXID);
+        }
     }
 
     public void TakeDamage(int rawDamage)

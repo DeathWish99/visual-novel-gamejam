@@ -224,3 +224,5 @@ MonoBehaviour:
   sfxList:
   - id: SFX01
     clip: {fileID: 0}
+  - id: GOBLIN_ATTACK
+    clip: {fileID: 8300000, guid: bdffdf7a5df18f64f9482e06b680e3a1, type: 3}
