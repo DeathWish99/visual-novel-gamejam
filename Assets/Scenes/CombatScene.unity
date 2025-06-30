@@ -174,15 +174,19 @@ PrefabInstance:
     - target: {fileID: 7731608416092230468, guid: 01d6b1130a7c83a4ca8b5e93fe5e0ee7, type: 3}
       propertyPath: bgmList.Array.data[2].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 2b7a0dcc1292de845a7e7bb1e0a31e05, type: 3}
+      objectReference: {fileID: 8300000, guid: 1580cfe00b4e37146a9234083a5de71c, type: 3}
     - target: {fileID: 7731608416092230468, guid: 01d6b1130a7c83a4ca8b5e93fe5e0ee7, type: 3}
       propertyPath: bgmList.Array.data[3].clip
       value: 
       objectReference: {fileID: 8300000, guid: 896bc7dae8391e24894cd697155597ac, type: 3}
     - target: {fileID: 7731608416092230468, guid: 01d6b1130a7c83a4ca8b5e93fe5e0ee7, type: 3}
+      propertyPath: sfxList.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9cbbf1666b7016a42b148f657c66ad2c, type: 3}
+    - target: {fileID: 7731608416092230468, guid: 01d6b1130a7c83a4ca8b5e93fe5e0ee7, type: 3}
       propertyPath: sfxList.Array.data[1].clip
       value: 
-      objectReference: {fileID: 8300000, guid: eeb3af3b34cd1c64abe4026d40ca4838, type: 3}
+      objectReference: {fileID: 8300000, guid: 9cbbf1666b7016a42b148f657c66ad2c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1058,7 +1062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &585616311
 Transform:
   m_ObjectHideFlags: 0
@@ -1087,7 +1091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatSceneName: 
-  debugSceneParameters: {fileID: 11400000, guid: 70284049878827d40a284ce93abd8cfa, type: 2}
+  debugSceneParameters: {fileID: 11400000, guid: 5acb8acdde5ac914db40b9143f1a2bf1, type: 2}
 --- !u!1 &604553196
 GameObject:
   m_ObjectHideFlags: 0
