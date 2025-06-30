@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatSceneName: 
-  debugSceneParameters: {fileID: 11400000, guid: 96a10f8464e41b54e9a4c60d5292e9e0, type: 2}
+  debugSceneParameters: {fileID: 11400000, guid: 5acb8acdde5ac914db40b9143f1a2bf1, type: 2}
 --- !u!1 &604553196
 GameObject:
   m_ObjectHideFlags: 0

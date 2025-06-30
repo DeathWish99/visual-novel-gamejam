@@ -21,6 +21,7 @@ public class CombatManager : MonoBehaviour
     public static CombatManager Instance { get; private set; }
     public InputMode CurrentInputMode { get; private set; }
     public Skill SelectedSkill { get; private set; }
+    public bool HasOrc { get; private set; }
 
     // --------------------- Public Fields ---------------------
     public static event System.Action<CombatUnit> OnTurnChanged;
@@ -99,7 +100,16 @@ public class CombatManager : MonoBehaviour
 
     public void ReloadScene()
     {
-        StartCoroutine(ReloadAfterDelay(2f));
+        if (HasOrc)
+        {
+            GameManager.Instance.LoadNextDialog();
+            SceneManager.UnloadSceneAsync(COMBAT_SCENE_NAME);
+            Instance = null;
+        }
+        else
+        {
+            StartCoroutine(ReloadAfterDelay(2f));
+        }
     }
 
     // --------------------- Player Actions --------------------
@@ -201,12 +211,17 @@ public class CombatManager : MonoBehaviour
         List<EnemyType> enemyTypes = GameManager.Instance.CurrentParameters.Enemies;
         List<CombatUnit> enemies = unitSpawner.SpawnEnemies(enemyTypes);
 
-        foreach (var enemy in enemies)
+        if (enemyTypes.Contains(EnemyType.Orc) && GameManager.Instance.CurrentParameters.DisableSkills)
         {
-            Units.Add(enemy);
-            EnemyUnits.Add(enemy);
-            IconDisplayOrder.Add(enemy);
+            HasOrc = true;
         }
+
+        foreach (var enemy in enemies)
+            {
+                Units.Add(enemy);
+                EnemyUnits.Add(enemy);
+                IconDisplayOrder.Add(enemy);
+            }
     }
 
     // --------------------- Turn Logic ---------------------

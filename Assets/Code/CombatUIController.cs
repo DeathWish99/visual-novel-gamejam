@@ -52,7 +52,11 @@ public class CombatUIController : MonoBehaviour
 
     private void HandlePlayerDied()
     {
-        gameOverPanel.SetActive(true);
+        if (!CombatManager.Instance.HasOrc)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
         CombatManager.Instance.ReloadScene();
     }
 
