@@ -178,6 +178,11 @@ namespace VisualNovel.GameJam.Manager
             }
         }
 
+        public void PauseBGM()
+        {
+            bgmSource.DOPause();
+        }
+
         private void PlayBGM(AudioClip clip, bool loop = true)
         {
             if (clip == null || (currentBGM == clip && bgmSource.isPlaying)) return;

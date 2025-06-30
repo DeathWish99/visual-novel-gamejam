@@ -214,15 +214,39 @@ MonoBehaviour:
   initialSFXPoolSize: 5
   bgmList:
   - id: BGM01
-    clip: {fileID: 0}
-  - id: BGM01
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: fff005a60d1525d45b324f7b7ae701c2, type: 3}
+  - id: BGM02
+    clip: {fileID: 8300000, guid: 19a04ba4e83daf749af9cf8f87487534, type: 3}
   - id: CMBT01
-    clip: {fileID: 8300000, guid: 9dd77152a0013b241962da0686b6c62f, type: 3}
+    clip: {fileID: 8300000, guid: 936d2f59aee437d4fb73c4ae12ae27d0, type: 3}
   - id: CMBT02
-    clip: {fileID: 8300000, guid: f78fcdb4f77c8a842b04efadeb8aef8d, type: 3}
+    clip: {fileID: 8300000, guid: 51d3ae2f923429b4ca7c1f2bde50cf36, type: 3}
   sfxList:
-  - id: SFX01
-    clip: {fileID: 0}
   - id: GOBLIN_ATTACK
-    clip: {fileID: 8300000, guid: bdffdf7a5df18f64f9482e06b680e3a1, type: 3}
+    clip: {fileID: 8300000, guid: 992c92ea348f9964ca3d15040a04dacc, type: 3}
+  - id: SFX01
+    clip: {fileID: 8300000, guid: 2e31c21480d42034a9237e19188a0878, type: 3}
+  - id: SFX02
+    clip: {fileID: 8300000, guid: 9152e6ddf4af7504eabd8e2d24ca2a3a, type: 3}
+  - id: SFX03
+    clip: {fileID: 8300000, guid: a7d3e64f16beb3a48910901fef834682, type: 3}
+  - id: SFX04
+    clip: {fileID: 8300000, guid: ecd87aeb80022bf4a9825558a655fdc7, type: 3}
+  - id: SFX05
+    clip: {fileID: 8300000, guid: 884dabdf284ba044497857b7443b4ee4, type: 3}
+  - id: SFX06
+    clip: {fileID: 8300000, guid: 19b0bd71a05b96443bb7ca41f160a8ae, type: 3}
+  - id: SFX07
+    clip: {fileID: 8300000, guid: 0f9946ee60435db45b88991b6a0ccf57, type: 3}
+  - id: SFX08
+    clip: {fileID: 8300000, guid: 4f1f8d07b8ef71249be3ca76a3be5b4d, type: 3}
+  - id: SFX09
+    clip: {fileID: 8300000, guid: 9cb6c1ce9d8b6f54f99c9068da9f8d01, type: 3}
+  - id: SFX010
+    clip: {fileID: 8300000, guid: 3fa6ed0fd5581ff42a83844a8e738abf, type: 3}
+  - id: SFX011
+    clip: {fileID: 8300000, guid: 846a14b9a023d7448af7a09af44bfaac, type: 3}
+  - id: SFX012
+    clip: {fileID: 8300000, guid: ee51eb87b51fa654a891065a96b7c621, type: 3}
+  - id: SFX013
+    clip: {fileID: 8300000, guid: 8e1174ccd5910c54897f68321d355a8b, type: 3}
