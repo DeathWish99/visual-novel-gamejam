@@ -7,6 +7,8 @@ using VisualNovel.GameJam.Manager;
 
 public class CombatManager : MonoBehaviour
 {
+    private const string COMBAT_SCENE_NAME = "CombatScene";
+
     // --------------------- Serialized Fields ---------------------
     [SerializeField] private UnitSpawner unitSpawner;
     [SerializeField] private TurnManager turnManager;
@@ -232,6 +234,8 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         GameManager.Instance.LoadNextDialog();
+        SceneManager.UnloadSceneAsync(COMBAT_SCENE_NAME);
+        Instance = null;
     }
 
 
@@ -301,6 +305,6 @@ public class CombatManager : MonoBehaviour
     private IEnumerator ReloadAfterDelay(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(COMBAT_SCENE_NAME);
     }
 }

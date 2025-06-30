@@ -10,7 +10,7 @@ public class CombatUIController : MonoBehaviour
 
     private int cooldownTimer = 0;
 
-    private void OnEnable()
+    private void Awake()
     {
         CombatManager.OnTurnChanged += HandleTurnChanged;
         CombatManager.OnSkillUsed += HandleSkillUsed;
@@ -24,6 +24,7 @@ public class CombatUIController : MonoBehaviour
         CombatManager.OnTurnChanged -= HandleTurnChanged;
         CombatManager.OnSkillUsed -= HandleSkillUsed;
         CombatManager.OnPlayerDied -= HandlePlayerDied;
+        CombatManager.DisableSkills -= HandleDisableSkills;
         CombatManager.OnVictory -= HandleVictory;
     }
 
