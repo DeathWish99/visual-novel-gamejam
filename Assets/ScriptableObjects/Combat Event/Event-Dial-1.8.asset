@@ -17,3 +17,4 @@ MonoBehaviour:
   enabledSkills: 
   disableSkills: 0
   nextDialogID: Dialog-1.9
+  buffPlayer: 1

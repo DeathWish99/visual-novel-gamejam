@@ -38,6 +38,12 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private void Awake()
     {
         CurrentHP = Stats.MaxHP;
+
+        if (stats.IsPlayer && GameManager.Instance.CurrentParameters.BuffPlayer)
+        {
+            CurrentHP = 500;
+        }
+
         AttackBuff = 0;
         ActiveEffects = new List<ActiveEffect>();
 

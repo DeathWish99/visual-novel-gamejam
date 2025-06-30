@@ -19,5 +19,5 @@ MonoBehaviour:
   canTargetPlayer: 0
   canTargetCompanion: 0
   canTargetEnemy: 1
-  damagePercent: 500
+  damagePercent: 1000
   critRate: 0

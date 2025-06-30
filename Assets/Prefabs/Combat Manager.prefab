@@ -81,6 +81,8 @@ MonoBehaviour:
   skillButtons:
   - {fileID: 0}
   - {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  victoryPanel: {fileID: 0}
 --- !u!114 &6357147953473114008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4646013948717087743, guid: f41ce40676905bb41bb58f293738775f, type: 3}
+  buffedPlayerPrefab: {fileID: 2288008712364923108, guid: d2a0b14a8a7fe8b41aaa5b2fc9e3d78d, type: 3}
   companionPrefab: {fileID: 2574124979064888569, guid: ccb624387f968654b95e2e21e393c9ac, type: 3}
   enemyPrefabs:
   - type: 0

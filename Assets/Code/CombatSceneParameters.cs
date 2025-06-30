@@ -11,6 +11,7 @@ public class CombatSceneParameters : ScriptableObject
     [SerializeField] private bool disableSkills;
 
     [SerializeField] private string nextDialogID;
+    [SerializeField] private bool buffPlayer;
 
     public bool HasCompanion => hasCompanion;
     public List<EnemyType> Enemies => enemies;
@@ -18,4 +19,5 @@ public class CombatSceneParameters : ScriptableObject
     public bool DisableSkills => disableSkills;
 
     public string NextDialogID => nextDialogID;
+    public bool BuffPlayer => buffPlayer;
 }
