@@ -63,11 +63,11 @@ public class CombatManager : MonoBehaviour
         if (GameManager.Instance.CurrentParameters.DisableSkills)
         {
             DisableSkills?.Invoke();
-            AudioManager.Instance.PlayBGM(REGULAR_BGM);
+            SoundController.Instance.PlayMusic(0);
         }
         else
         {
-            AudioManager.Instance.PlayBGM(SPECIAL_BGM);
+            SoundController.Instance.PlayMusic(1);
         }
 
         turnManager.StartNextTurn();
