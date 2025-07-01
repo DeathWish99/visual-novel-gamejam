@@ -91,10 +91,7 @@ public class CombatUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         Animator.SetTrigger(ATTACK_TRIGGER);
 
-        if (!string.IsNullOrEmpty(attackSFXID))
-        {
-            AudioManager.Instance.PlaySFX(attackSFXID);
-        }
+        SoundController.Instance.PlaySFX(0);
     }
 
     public void TakeDamage(int rawDamage)
